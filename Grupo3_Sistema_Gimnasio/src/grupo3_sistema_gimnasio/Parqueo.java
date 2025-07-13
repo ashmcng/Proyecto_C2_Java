@@ -91,6 +91,9 @@ public class Parqueo {
         inicializarNivelCondicion(nivelG1, idsG1, "G1"); //llamamos al inicializador de condicion
         inicializarNivelCondicion(nivelG2, idsG2, "G2");
         inicializarNivelCondicion(nivelG3, idsG3, "G3");
+        mostrarNivel(nivelG1, "G1");
+        mostrarNivel(nivelG2, "G2");
+        mostrarNivel(nivelG3, "G3");
     }
 
     // LLENAMOS LAS MATRICES DE LIBRE
@@ -158,6 +161,7 @@ public class Parqueo {
                 nivel[fila][columna] = 'O'; //  sale como ocupado
                 ids[fila][columna] = idSocio; // sacomos id de clase socio
                 JOptionPane.showInternalMessageDialog(null, "Se Asigno el parqueo correctamente");
+                mostrarNivel(nivel, columnaInput);
                 return true;
             } else if (espacio == 'D') {
                 JOptionPane.showInternalMessageDialog(null, "Espacio de discapacitados");

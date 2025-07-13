@@ -267,13 +267,20 @@ public class Grupo3_Sistema_Gimnasio {
                     break;
                 case 6:
                     Parqueo parqueo = new Parqueo();
+                    
+                    boolean parquear = (opcion == JOptionPane.YES_OPTION);
+                    
+                    while (parquear) {
 
                     int parqueo1;
+                    
                     parqueo1 = Integer.parseInt(JOptionPane.showInputDialog("Seleccione 1. Menu de Parqueo, 2. Salir"));
-                    do { //para condicion de salida switch      
+                    
                         switch (parqueo1) {
 
                             case 1:
+                                JOptionPane.showMessageDialog(null, "ESTE ES EL ESTADO ACTUAL DE LOS PARQUEOS");
+                                parqueo.inicializarNiveles(); 
                                 int nivel = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el nivel del parqueo: 1. G1, 2. G2, 3. G3"));
 
                                 //MOSTRAR LOS SOCIOS QUE SE PUEDEN PARQUEAR
@@ -296,6 +303,9 @@ public class Grupo3_Sistema_Gimnasio {
                                 } else if (nivel == 3) {
                                     parqueo.asignarEspacio(parqueo.getNivelG3(), parqueo.getIdsG3(), idSocio);
                                 }
+                                
+                                //JOptionPane.showInputDialog("Desea salir del parqueo");
+                                
                                 break;
                             case 2:
                                 JOptionPane.showMessageDialog(null, "Gracias por usar el parqueo!!");
@@ -304,7 +314,11 @@ public class Grupo3_Sistema_Gimnasio {
                                 JOptionPane.showMessageDialog(null, "La opcion selecionada no es valida");
                                 break;
                         }
-                    } while (parqueo1 != 2);
+
+                        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al parqueo?");
+                        parquear = (respuesta == JOptionPane.YES_OPTION);
+                    }
+                    
 
                     break;
                 case 7:
