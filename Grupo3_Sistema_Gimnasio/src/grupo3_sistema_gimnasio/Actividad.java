@@ -5,6 +5,9 @@
 package grupo3_sistema_gimnasio;
 
 import javax.swing.JOptionPane;
+import java.time.LocalTime; 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  *
@@ -15,7 +18,7 @@ public class Actividad {
     /// DEFINIMOS LAS VARIABLES
     
     private String nombreActividad;
-    private String horario;
+    private LocalTime horario; // Usamos Java Date
     private int capacidadActividad;
     private int cantidadActual;
 
@@ -37,14 +40,15 @@ public class Actividad {
         this.capacidadActividad = capacidadActividad;
     }
 
-    public String getHorario() {
+    public LocalTime getHorario() {
         return horario;
     }
 
-    public void setHorario(String horario) {
+    public void setHorario(LocalTime horario) {
         this.horario = horario;
     }
 
+    
     public int getCantidadActual() {
         return cantidadActual;
     }
@@ -53,11 +57,26 @@ public class Actividad {
         this.cantidadActual = cantidadActual;
     }
 
-    public Actividad(String nombreActividad, String horario, int capacidadActividad, int cantidadActual) {
+    public Actividad(String nombreActividad, LocalTime horario, int capacidadActividad, int cantidadActual) {
         this.nombreActividad = nombreActividad;
         this.horario = horario;
         this.capacidadActividad = capacidadActividad;
         this.cantidadActual = cantidadActual;
+    }
+    
+    // METODO DE SOLICITAR HORARIO
+    
+    public static LocalTime solicitarHorario() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        while (true) {
+            try {  // usamos try y catch para detectar error 
+                String input = JOptionPane.showInputDialog("Digite el Horario de la clase en formato militar HH:mm");
+                return LocalTime.parse(input, formatter);
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(null, "El formato de la fecha ingresada no es el correcto, se necesita ej 14:30");
+            }
+
+        }
     }
 
     ///METODO PARA CREAR UNA ACTIVIDAD
@@ -66,7 +85,7 @@ public class Actividad {
         /// SE SOLICITAN LOS VALORES DE LA CLASE
         
         String inputNombre = JOptionPane.showInputDialog("Digite el nombre de la actividad que desea crear: ");
-        String inputHorario = JOptionPane.showInputDialog("Digite el horario de la clase en estandar militar: *ESCRIBA Horario ho:ra ");
+        LocalTime inputHorario = solicitarHorario(); //solicitamos el horario con el metodo reutilizable 
         int inputcapacidadActividad = Integer.parseInt(JOptionPane.showInputDialog("Digite la capacidad maxima de personas que se pueden inscribir SOLO SE PERMITEN NUMEROS:"));
         int inputCantidad = Integer.parseInt(JOptionPane.showInputDialog("Digite la cantidad de personas ya inscritas en caso de que aplique si no ingrese 0: "));
 
@@ -100,7 +119,7 @@ public class Actividad {
                     this.setNombreActividad(inputNombre1);
                     break;
                 case 2:
-                    String inputHorario1 = JOptionPane.showInputDialog("Digite el horario de la clase en estandar militar: *ESCRIBA Horario ho:ra ");
+                    LocalTime inputHorario1 = solicitarHorario();
                     this.setHorario(inputHorario1);
                     break;
                 case 3:
@@ -149,7 +168,7 @@ public class Actividad {
 
     @Override
     public String toString() {
-        return "Nombre Actividad: " + nombreActividad + " " + "Capacidad Maxima: " + capacidadActividad + " " + "Cantidad actual: " + cantidadActual + "  " + horario;
+        return "Nombre Actividad: " + nombreActividad + " " + "Capacidad Maxima: " + capacidadActividad + " " + "Cantidad actual: " + cantidadActual + "  " +  "El horario de la clase es  " + horario;
     }
 
 }

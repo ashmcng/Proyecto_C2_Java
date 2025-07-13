@@ -4,6 +4,7 @@
  */
 package grupo3_sistema_gimnasio;
 
+import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,12 +19,12 @@ public class Grupo3_Sistema_Gimnasio {
     /// CREAMOS CLASE PREDETERMINADAS Y LA NUEVA CLASE
         
     private static Actividad nuevaActividad;
-    private static Actividad Yoga = new Actividad("Yoga", "Horario 6:00", 6, 0);
-    private static Actividad Crossfit = new Actividad("Crossfit", "Horario 7:00", 7, 0);
-    private static Actividad Zumba = new Actividad("Zumba", "Horario 8:00", 8, 0);
-    private static Actividad Pilates = new Actividad("Pilates", "Horario 17:00", 13, 0);
-    private static Actividad funcionales = new Actividad("funcionales", "Horario 18:00", 7, 0);
-    private static Actividad Boxeo = new Actividad("Boxeo", "Horario 19:00", 11, 0);
+    private static Actividad Yoga = new Actividad("Yoga", LocalTime.of(6, 0), 6, 0);
+    private static Actividad Crossfit = new Actividad("Crossfit", LocalTime.of(7, 0), 7, 0);
+    private static Actividad Zumba = new Actividad("Zumba", LocalTime.of(8, 0), 8, 0);
+    private static Actividad Pilates = new Actividad("Pilates",LocalTime.of(17, 0), 13, 0);
+    private static Actividad funcionales = new Actividad("funcionales", LocalTime.of(18, 0), 7, 0);
+    private static Actividad Boxeo = new Actividad("Boxeo",  LocalTime.of(19, 0), 11, 0);
     private static Socio socio1 = new Socio("Juan", 1252, true);
     private static Socio socio3 = new Socio("Matias", 3828, false);
     
@@ -187,7 +188,7 @@ public class Grupo3_Sistema_Gimnasio {
                     }
                     break;
                 case 3:
-                    nuevaActividad = new Actividad(" ", " ", 0, 0);
+                    nuevaActividad = new Actividad(" ", LocalTime.of(0, 0), 0, 0);
                     nuevaActividad.crearActividad(); // LLENAR LA INFO DE LA ACTIVIDAD
                     nuevaActividad.editarCuestionario(); // Editar actividad creada
                     JOptionPane.showInternalMessageDialog(null, nuevaActividad.toString());
@@ -269,6 +270,7 @@ public class Grupo3_Sistema_Gimnasio {
                     
                     break;
                 case 6:
+                    estadoMenu = false;
                     continue;
                 default:
                     JOptionPane.showMessageDialog(null, "La opcion no es valida");
