@@ -22,19 +22,17 @@ public class Grupo3_Sistema_Gimnasio {
     private static Actividad Yoga = new Actividad("Yoga", LocalTime.of(6, 0), 6, 0);
     private static Actividad Crossfit = new Actividad("Crossfit", LocalTime.of(7, 0), 7, 0);
     private static Actividad Zumba = new Actividad("Zumba", LocalTime.of(8, 0), 8, 0);
-    private static Actividad Pilates = new Actividad("Pilates",LocalTime.of(17, 0), 13, 0);
+    private static Actividad Pilates = new Actividad("Pilates", LocalTime.of(17, 0), 13, 0);
     private static Actividad funcionales = new Actividad("funcionales", LocalTime.of(18, 0), 7, 0);
-    private static Actividad Boxeo = new Actividad("Boxeo",  LocalTime.of(19, 0), 11, 0);
+    private static Actividad Boxeo = new Actividad("Boxeo", LocalTime.of(19, 0), 11, 0);
     private static Socio socio1 = new Socio("Juan", 1252, true);
     private static Socio socio3 = new Socio("Matias", 3828, false);
-    
-      // INICILIZAMOS TODOS LOS OBJETOS
-  
+
+    // INICILIZAMOS TODOS LOS OBJETOS
     public static Socio getSocio3() {
         return socio3;
     }
 
-  
     public static void setSocio3(Socio socio3) {
         Grupo3_Sistema_Gimnasio.socio3 = socio3;
     }
@@ -46,7 +44,7 @@ public class Grupo3_Sistema_Gimnasio {
     public static void setSocio1(Socio socio1) {
         Grupo3_Sistema_Gimnasio.socio1 = socio1;
     }
-    
+
     public static Actividad getNuevaActividad() {
 
         return nuevaActividad;
@@ -100,8 +98,6 @@ public class Grupo3_Sistema_Gimnasio {
         return Boxeo;
     }
 
-    ///INICIALIZAMOS
-    //
     public static void setBoxeo(Actividad Boxeo) {
         Grupo3_Sistema_Gimnasio.Boxeo = Boxeo;
     }
@@ -121,7 +117,8 @@ public class Grupo3_Sistema_Gimnasio {
                     + "3. Crear Clase \n"
                     + "4. Registrasr a un socio en una clase \n"
                     + "5. Sala de Pesas \n"
-                    + "6. Salir"));
+                    + "6. Parqueo \n"
+                    + "7. Salir"));
             switch (option2) {
                 case 1:
                     JOptionPane.showMessageDialog(null, "ESTA SON LA CLASES DISPONIBLES DE LA MAÑANA:  \n"
@@ -194,82 +191,123 @@ public class Grupo3_Sistema_Gimnasio {
                     JOptionPane.showInternalMessageDialog(null, nuevaActividad.toString());
                     break;
                 case 4:
-                    
+
                     // MINI MENU PARA VALIDAR EL ID DEL SOCIO DEL LADO DE LA SECRETARIA 
-                    
                     int idSocioIngresado = Integer.parseInt(JOptionPane.showInputDialog("Digite el ID del socio que desea ingresa *PRUEBA 3828 1252*"));
                     Socio socioEncontrado = null; // vamos a usarlo al validar
-                    
+
                     // BUSCAMOS EL SOCIO SIN ARRAYS NO HEMOS VISTO 
-                    
                     if (idSocioIngresado == socio1.getIdSocio()) {
-                        socioEncontrado = socio1; 
+                        socioEncontrado = socio1;
                     } else if (idSocioIngresado == socio3.getIdSocio()) {
-                        socioEncontrado = socio3; 
+                        socioEncontrado = socio3;
                     } else {
-                     JOptionPane.showMessageDialog(null, "Socio no encontrado");
+                        JOptionPane.showMessageDialog(null, "Socio no encontrado");
                     }
-                    
+
                     if (socioEncontrado != null) {
-                        int clase = Integer.parseInt(JOptionPane.showInputDialog(" A cual de las siguientes clases desea registrar al Socio \n" 
+                        int clase = Integer.parseInt(JOptionPane.showInputDialog(" A cual de las siguientes clases desea registrar al Socio \n"
                                 + "1. Yoga \n"
                                 + "2. Crossfit \n"
                                 + "3. Zumba \n"
                                 + "4. Pilates \n"
                                 + "5. funcionales \n"
                                 + "6. Boxeo \n"));
-                        if ( clase == 1) {
+                        if (clase == 1) {
                             Yoga.registrarSocio(socioEncontrado);
-                        } else if ( clase == 2) {
+                        } else if (clase == 2) {
                             Crossfit.registrarSocio(socioEncontrado);
-                        } else if ( clase == 3) {
+                        } else if (clase == 3) {
                             Zumba.registrarSocio(socioEncontrado);
-                        } else if ( clase == 4) {
+                        } else if (clase == 4) {
                             Pilates.registrarSocio(socioEncontrado);
-                        } else if ( clase == 5) {
+                        } else if (clase == 5) {
                             funcionales.registrarSocio(socioEncontrado);
-                        } else if ( clase == 5) {
+                        } else if (clase == 5) {
                             Boxeo.registrarSocio(socioEncontrado);
                         } else {
                             JOptionPane.showInternalMessageDialog(null, "La opcion no es valida");
                         }
-                                
+
                     }
                     break;
                 case 5:
                     Pesas sala = new Pesas();
-                    
+
                     boolean seguir = true; // para poder salir del while
-                    
+
                     while (seguir) {
-                        
-                         int option4 = Integer.parseInt(JOptionPane.showInputDialog(" BIENVENIDO A LA SALA DE PESAS \n"  /// CREAMOS LA VARIABLE PARA EL SWITCH 
+
+                        int option4 = Integer.parseInt(JOptionPane.showInputDialog(" BIENVENIDO A LA SALA DE PESAS \n"  /// CREAMOS LA VARIABLE PARA EL SWITCH 
                                 + "1. Registrar Entrada \n"
                                 + "2. Registrar Salida \n"
                                 + "3. Ver Cantidad de personas dentro \n"
                                 + "4. Salir"));
-                         switch (option4) {
-                             
-                             case 1:
-                                 sala.registrarEntrada(socio1); /// solo socio1 para pruebas
+                        switch (option4) {
+
+                            case 1:
+                                sala.registrarEntrada(socio1);
+                                /// solo socio1 para pruebas
                                  break;
-                             case 2:
-                                 sala.registroSalida(socio1);
-                                 break;
-                             case 3:
-                                 sala.verCapacidadPesas();
-                                 break;     
-                             case 4:
-                                 seguir = false;
-                                 break;
-                             default:
-                                 JOptionPane.showInternalMessageDialog(null, "La opcion no es valida");
-                         }
-                        
+                            case 2:
+                                sala.registroSalida(socio1);
+                                break;
+                            case 3:
+                                sala.verCapacidadPesas();
+                                break;
+                            case 4:
+                                seguir = false;
+                                break;
+                            default:
+                                JOptionPane.showInternalMessageDialog(null, "La opcion no es valida");
+                        }
+
                     }
-                    
+
                     break;
                 case 6:
+                    Parqueo parqueo = new Parqueo();
+
+                    int parqueo1;
+                    parqueo1 = Integer.parseInt(JOptionPane.showInputDialog("Seleccione 1. Menu de Parqueo, 2. Salir"));
+                    do { //para condicion de salida switch      
+                        switch (parqueo1) {
+
+                            case 1:
+                                int nivel = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el nivel del parqueo: 1. G1, 2. G2, 3. G3"));
+
+                                //MOSTRAR LOS SOCIOS QUE SE PUEDEN PARQUEAR
+                                int socioSelec = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el ID del Socio \n"
+                                        + "1. " + Grupo3_Sistema_Gimnasio.getSocio1().getNombreSocio() + " ID: " + Grupo3_Sistema_Gimnasio.getSocio1().getIdSocio() + " \n "
+                                        + "2. " + Grupo3_Sistema_Gimnasio.getSocio3().getNombreSocio() + "ID " + Grupo3_Sistema_Gimnasio.getSocio3().getIdSocio()));
+
+                                int idSocio;
+
+                                if (socioSelec == 1) {
+                                    idSocio = Grupo3_Sistema_Gimnasio.getSocio1().getIdSocio();
+                                } else {
+                                    idSocio = Grupo3_Sistema_Gimnasio.getSocio3().getIdSocio();
+                                }
+
+                                if (nivel == 1) {
+                                    parqueo.asignarEspacio(parqueo.getNivelG1(), parqueo.getIdsG1(), idSocio);
+                                } else if (nivel == 2) {
+                                    parqueo.asignarEspacio(parqueo.getNivelG2(), parqueo.getIdsG2(), idSocio);
+                                } else if (nivel == 3) {
+                                    parqueo.asignarEspacio(parqueo.getNivelG3(), parqueo.getIdsG3(), idSocio);
+                                }
+                                break;
+                            case 2:
+                                JOptionPane.showMessageDialog(null, "Gracias por usar el parqueo!!");
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "La opcion selecionada no es valida");
+                                break;
+                        }
+                    } while (parqueo1 != 2);
+
+                    break;
+                case 7:
                     estadoMenu = false;
                     continue;
                 default:
@@ -278,12 +316,11 @@ public class Grupo3_Sistema_Gimnasio {
                     break;
 
             }
-
-            // consultamos si desea seguir editando 
-            int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al MENU");
-            estadoMenu = (respuesta == JOptionPane.YES_OPTION);
-
         }
-    }
 
+        // consultamos si desea seguir editando 
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al MENU");
+        estadoMenu = (respuesta == JOptionPane.YES_OPTION);
+
+    }
 }
