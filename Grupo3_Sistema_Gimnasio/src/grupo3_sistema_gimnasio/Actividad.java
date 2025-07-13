@@ -163,7 +163,7 @@ public class Actividad {
         // si cumple lo requerido se registra
         cantidadActual++;
         JOptionPane.showInternalMessageDialog(null, "SE HA REGISTRADO CON EXITO, PERSONAS EN LA SALA:  " + cantidadActual);
-        return true;
+        return true; 
     }
 
     @Override
