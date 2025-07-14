@@ -103,6 +103,10 @@ public class Grupo3_Sistema_Gimnasio {
     }
 
     public static void main(String[] args) {
+        
+        // INTANCEAMOS EL GUI 
+        
+        new GUI();
         ///MENU DE CREAR ACTIVIDAD, MOSTRAR ESTADO DE ACTIVIDADES Y EDITAR LAS ACTIVIDADES
         
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea ingresar al menu?");
