@@ -72,10 +72,18 @@ public class GUI extends JFrame {
     public GUI() {
         super("Nova Gym");
         
-        //logo para la pestaña
-        ImageIcon icon = new ImageIcon("iconos/Logo.png");
-        setIconImage(icon.getImage());
+        ///Creamos un panel que contenga logo + título 
+        JPanel panelTop = new JPanel();
+        panelTop.setBackground(fondo);
+        panelTop.setLayout(new BorderLayout());
+        
+        //cagar el logo
+        ImageIcon logoIcon = new ImageIcon("iconos/Logo.png");
+        JLabel labelLogo = new JLabel(logoIcon);
+        labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        panelTop.add(labelLogo, BorderLayout.NORTH);
 
+        
         // Try-catch para cargar la fuente Nunito-Bold
         try {
             nunitoBold = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Nunito-Bold.ttf")).deriveFont(18f);
@@ -93,23 +101,20 @@ public class GUI extends JFrame {
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setVisible(true);
-
-        // main titulo 
+        
+        /// TITULO DEL MAIN
         JLabel titulo = new JLabel("¡Bienvenido a la app de Nova Gym!", SwingConstants.CENTER);
         titulo.setFont(nunitoBold.deriveFont(24f)); // tamaño más grande para título
         titulo.setForeground(colorBoton);
         titulo.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
-        add(titulo, BorderLayout.NORTH);
+        panelTop.add(titulo, BorderLayout.SOUTH);
 
         // Panel central para centrar el botón
         JPanel panelCentral = new JPanel();
         panelCentral.setBackground(fondo);
         panelCentral.setLayout(new GridBagLayout()); // para centrar contenido
 
-        //imagen main Logo arriba:
-        ImageIcon logoIcon = new ImageIcon("iconos/Logo.png");
-        JLabel labelLogo = new JLabel(logoIcon);
-        labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
+   
 
         add(labelLogo, BorderLayout.NORTH);
         
