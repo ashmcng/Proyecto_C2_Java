@@ -114,9 +114,7 @@ public class GUI extends JFrame {
         panelCentral.setBackground(fondo);
         panelCentral.setLayout(new GridBagLayout()); // para centrar contenido
 
-   
-
-        add(labelLogo, BorderLayout.NORTH);
+        add(panelTop, BorderLayout.NORTH);
         
         /// BOTONES DREDONDOS 
 
