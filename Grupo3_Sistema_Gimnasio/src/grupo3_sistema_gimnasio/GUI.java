@@ -26,9 +26,11 @@ public class GUI extends JFrame {
     private Color colorLetraBoton = Color.decode("#FFFFFF");
     private Font nunitoBold;
     private JPanel panelMenuOpciones; // panel con los botones del menú
-    
-     // Botón custom con bordes redondeados
+    private JLabel labelContenido;
+
+    // Botón custom con bordes redondeados
     class RoundedButton extends JButton {
+
         private int radius;
 
         public RoundedButton(String text, int radius) {
@@ -43,6 +45,9 @@ public class GUI extends JFrame {
             setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
         }
 
+        /**
+         * COLORES DE LA PAGINA Y ESTILO
+         */
         @Override
         protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g.create();
@@ -58,7 +63,7 @@ public class GUI extends JFrame {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setColor(Color.WHITE);
-            g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, radius, radius);
+            g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
             g2.dispose();
         }
 
@@ -69,21 +74,10 @@ public class GUI extends JFrame {
         }
     }
 
+
     public GUI() {
         super("Nova Gym");
-        
-        ///Creamos un panel que contenga logo + título 
-        JPanel panelTop = new JPanel();
-        panelTop.setBackground(fondo);
-        panelTop.setLayout(new BorderLayout());
-        
-        //cagar el logo
-        ImageIcon logoIcon = new ImageIcon("iconos/Logo.png");
-        JLabel labelLogo = new JLabel(logoIcon);
-        labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
-        panelTop.add(labelLogo, BorderLayout.NORTH);
 
-        
         // Try-catch para cargar la fuente Nunito-Bold
         try {
             nunitoBold = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Nunito-Bold.ttf")).deriveFont(18f);
@@ -94,36 +88,57 @@ public class GUI extends JFrame {
             nunitoBold = new Font("SansSerif", Font.BOLD, 18); // fallback
         }
 
-        setTitle(" NOVA GYM ");
+        // Configuración de ventana
+        setTitle("NOVA GYM");
+        setResizable(false);
         setSize(1000, 700);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // CIERRA CON EXIT 
-        getContentPane().setBackground(fondo); // COLOR DEFINIDO ARRIBA
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setBackground(fondo);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-        setVisible(true);
-        
-        /// TITULO DEL MAIN
-        JLabel titulo = new JLabel("¡Bienvenido a la app de Nova Gym!", SwingConstants.CENTER);
-        titulo.setFont(nunitoBold.deriveFont(24f)); // tamaño más grande para título
-        titulo.setForeground(colorBoton);
-        titulo.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
-        panelTop.add(titulo, BorderLayout.SOUTH);
 
-        // Panel central para centrar el botón
+        // Panel superior con logo, título y mensaje dinámico
+        JPanel panelTop = new JPanel();
+        panelTop.setBackground(fondo);
+        panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.Y_AXIS));
+
+        // Logo
+        ImageIcon logoIcon = new ImageIcon("iconos/Logo.png");
+        JLabel labelLogo = new JLabel(logoIcon);
+        labelLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelTop.add(labelLogo);
+
+        // Título
+        JLabel titulo = new JLabel("¡Bienvenido a la app de Nova Gym!", SwingConstants.CENTER);
+        titulo.setFont(nunitoBold.deriveFont(24f));
+        titulo.setForeground(colorBoton);
+        titulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelTop.add(titulo);
+
+        // Mensaje dinámico
+        labelContenido = new JLabel("Selecciona una opción del menú.", SwingConstants.CENTER);
+        labelContenido.setFont(nunitoBold.deriveFont(20f));
+        labelContenido.setForeground(colorBoton);
+        labelContenido.setBorder(BorderFactory.createEmptyBorder(5, 10, 15, 10));
+        labelContenido.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelTop.add(labelContenido);
+
+        // Agregar parte superior
+        add(panelTop, BorderLayout.NORTH);
+
+        // Panel central con botón "Menu"
         JPanel panelCentral = new JPanel();
         panelCentral.setBackground(fondo);
-        panelCentral.setLayout(new GridBagLayout()); // para centrar contenido
+        panelCentral.setLayout(new GridBagLayout());
 
-        add(panelTop, BorderLayout.NORTH);
-        
-        /// BOTONES DREDONDOS 
-
-        RoundedButton btnMenu = new RoundedButton("Menu", 25); // radio 25 para bordes super redonditos
+        RoundedButton btnMenu = new RoundedButton("Menu", 25);
         btnMenu.setFont(nunitoBold.deriveFont(18f));
         btnMenu.setPreferredSize(new Dimension(140, 50));
         panelCentral.add(btnMenu);
         add(panelCentral, BorderLayout.CENTER);
 
+        // Panel con botones de opciones
         panelMenuOpciones = new JPanel();
         panelMenuOpciones.setBackground(fondo);
         panelMenuOpciones.setLayout(new GridLayout(4, 2, 10, 10));
@@ -135,7 +150,7 @@ public class GUI extends JFrame {
             "4. Registrar Socio", "5. Sala de Pesas", "6. Parqueo", "7. Salir"
         };
 
-          for (String texto : textos) {
+        for (String texto : textos) {
             RoundedButton btn = new RoundedButton(texto, 25);
             btn.setFont(nunitoBold.deriveFont(18f));
             btn.setPreferredSize(new Dimension(140, 45));
@@ -158,29 +173,31 @@ public class GUI extends JFrame {
     private void manejarOpcion(char opcion) {
         switch (opcion) {
             case '1':
-                JOptionPane.showMessageDialog(this, "Mostrar clases disponibles (pendiente implementación)");
+                labelContenido.setText("Clases disponibles (pendiente implementación)");
                 break;
             case '2':
-                JOptionPane.showMessageDialog(this, "Editar clases (pendiente implementación)");
+                labelContenido.setText(" Editar clases (pendiente implementación)");
                 break;
             case '3':
-                JOptionPane.showMessageDialog(this, "Crear clase (pendiente implementación)");
+                labelContenido.setText("Crear clase (pendiente implementación)");
                 break;
             case '4':
-                JOptionPane.showMessageDialog(this, "Registrar socio (pendiente implementación)");
+                labelContenido.setText("Registrar socio (pendiente implementación)");
                 break;
             case '5':
-                JOptionPane.showMessageDialog(this, "Sala de pesas (pendiente implementación)");
+                labelContenido.setText(" Sala de pesas (pendiente implementación)");
                 break;
             case '6':
-                JOptionPane.showMessageDialog(this, "Parqueo (pendiente implementación)");
+                labelContenido.setText("Parqueo");
                 break;
             case '7':
-                int res = JOptionPane.showConfirmDialog(this, "¿Quieres salir, queen?");
+                int res = JOptionPane.showConfirmDialog(this, "¿Desea salir del Menu");
                 if (res == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
                 break;
+            default:
+                labelContenido.setText("️Opción no válida");
         }
     }
 
