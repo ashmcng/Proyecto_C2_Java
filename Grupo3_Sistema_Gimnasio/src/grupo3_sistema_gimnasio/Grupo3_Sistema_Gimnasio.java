@@ -113,6 +113,7 @@ public class Grupo3_Sistema_Gimnasio {
 
         if (opcion1 == JOptionPane.YES_OPTION) {
             SwingUtilities.invokeLater(() -> new GUI());
+            
             return; //  esto evita que continúe el resto del código
         }
 

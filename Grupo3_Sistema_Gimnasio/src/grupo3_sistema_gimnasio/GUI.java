@@ -7,8 +7,7 @@ package grupo3_sistema_gimnasio;
 import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.File;
@@ -18,6 +17,7 @@ import java.io.IOException;
  *
  * @author ashle
  */
+
 public class GUI extends JFrame {
 
     // COLORES DEL GUI Y BOTONES
@@ -25,58 +25,15 @@ public class GUI extends JFrame {
     private Color colorBoton = Color.decode("#416975");
     private Color colorLetraBoton = Color.decode("#FFFFFF");
     private Font nunitoBold;
-    private JPanel panelMenuOpciones; // panel con los botones del menú
+    private JPanel panelMenuOpciones; // panel con los botones del menÃº
     private JLabel labelContenido;
 
-    // Botón custom con bordes redondeados
-    class RoundedButton extends JButton {
-
-        private int radius;
-
-        public RoundedButton(String text, int radius) {
-            super(text);
-            this.radius = radius;
-            setContentAreaFilled(false);
-            setFocusPainted(false);
-            setForeground(colorLetraBoton);
-            setBackground(colorBoton);
-            setFont(nunitoBold);
-            setCursor(new Cursor(Cursor.HAND_CURSOR));
-            setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
-        }
-
-        /**
-         * COLORES DE LA PAGINA Y ESTILO
-         */
-        @Override
-        protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(getBackground());
-            g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
-            super.paintComponent(g2);
-            g2.dispose();
-        }
-
-        @Override
-        protected void paintBorder(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(Color.WHITE);
-            g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
-            g2.dispose();
-        }
-
-        @Override
-        public void setContentAreaFilled(boolean b) {
-            // no relleno default para que se use paintComponent
-            super.setContentAreaFilled(false);
-        }
-    }
-
-
+    
+   
     public GUI() {
+
         super("Nova Gym");
+        System.out.println("Constructor GUI iniciado");
 
         // Try-catch para cargar la fuente Nunito-Bold
         try {
@@ -88,7 +45,7 @@ public class GUI extends JFrame {
             nunitoBold = new Font("SansSerif", Font.BOLD, 18); // fallback
         }
 
-        // Configuración de ventana
+        // Configuracion de ventana
         setTitle("NOVA GYM");
         setResizable(false);
         setSize(1000, 700);
@@ -96,43 +53,57 @@ public class GUI extends JFrame {
         getContentPane().setBackground(fondo);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
+        
+         // Panel para el logo (arriba)
+         
+        JPanel panelLogo = new JPanel();
+        panelLogo.setBackground(Color.decode("#a7c4ce"));
+        ImageIcon originalIcon = new ImageIcon("iconos/Logo.png");
+        Image scaledImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);  // Escalamos para que no tape todo
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel labelLogo = new JLabel(scaledIcon);
+        panelLogo.add(labelLogo);
+        add(panelLogo, BorderLayout.NORTH);
 
-        // Panel superior con logo, título y mensaje dinámico
-        JPanel panelTop = new JPanel();
-        panelTop.setBackground(fondo);
-        panelTop.setLayout(new BoxLayout(panelTop, BoxLayout.Y_AXIS));
+      // Panel central (título y otros)
+        JPanel panelCentro = new JPanel();
+        panelCentro.setBackground(Color.decode("#a7c4ce"));
+        panelCentro.setLayout(new BoxLayout(panelCentro, BoxLayout.Y_AXIS));
 
-        // Logo
-        ImageIcon logoIcon = new ImageIcon("iconos/Logo.png");
-        JLabel labelLogo = new JLabel(logoIcon);
-        labelLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panelTop.add(labelLogo);
+        JLabel titulo = new JLabel("Sistema de Gestión del Gimnasio");
+        titulo.setFont(nunitoBold);
+        titulo.setForeground(Color.BLACK);
+        titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelCentro.add(titulo);
 
-        // Título
-        JLabel titulo = new JLabel("¡Bienvenido a la app de Nova Gym!", SwingConstants.CENTER);
+        add(panelCentro, BorderLayout.CENTER);
+
+        // MAIN 
+        JPanel main = new JPanel();
+        JLabel label = new JLabel("BIENVENIDO AL NOVA GYM", SwingConstants.CENTER);
         titulo.setFont(nunitoBold.deriveFont(24f));
         titulo.setForeground(colorBoton);
         titulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panelTop.add(titulo);
+        main.add(titulo);
 
-        // Mensaje dinámico
+        // Mensaje dinamico
         labelContenido = new JLabel("Selecciona una opción del menú.", SwingConstants.CENTER);
         labelContenido.setFont(nunitoBold.deriveFont(20f));
         labelContenido.setForeground(colorBoton);
         labelContenido.setBorder(BorderFactory.createEmptyBorder(5, 10, 15, 10));
         labelContenido.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panelTop.add(labelContenido);
+        main.add(labelContenido);
 
         // Agregar parte superior
-        add(panelTop, BorderLayout.NORTH);
+        add(main, BorderLayout.NORTH);
 
-        // Panel central con botón "Menu"
+        // Panel central con boton "Menu"
         JPanel panelCentral = new JPanel();
         panelCentral.setBackground(fondo);
         panelCentral.setLayout(new GridBagLayout());
 
-        RoundedButton btnMenu = new RoundedButton("Menu", 25);
+        JButton btnMenu = new JButton("Menu");
         btnMenu.setFont(nunitoBold.deriveFont(18f));
         btnMenu.setPreferredSize(new Dimension(140, 50));
         panelCentral.add(btnMenu);
@@ -151,7 +122,7 @@ public class GUI extends JFrame {
         };
 
         for (String texto : textos) {
-            RoundedButton btn = new RoundedButton(texto, 25);
+            JButton btn = new JButton(texto);
             btn.setFont(nunitoBold.deriveFont(18f));
             btn.setPreferredSize(new Dimension(140, 45));
             btn.addActionListener(e -> manejarOpcion(texto.charAt(0)));
@@ -168,6 +139,12 @@ public class GUI extends JFrame {
         });
 
         setVisible(true);
+
+        // Forzar repaint y revalidate después de mostrar
+        SwingUtilities.invokeLater(() -> {
+            repaint();
+            revalidate();
+        });
     }
 
     private void manejarOpcion(char opcion) {
