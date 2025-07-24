@@ -4,6 +4,7 @@
  */
 package grupo3_sistema_gimnasio;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,14 +18,12 @@ public class Parqueo {
     private char[][] nivelG1;
     private char[][] nivelG2;
     private char[][] nivelG3;
-    
-    
 
     /// para asignar ID del socio en el campo 
     private int[][] idsG1;
     private int[][] idsG2;
     private int[][] idsG3;
-    
+
     ///SETTER AND GETTER
     public char[][] getNivelG1() {
         return nivelG1;
@@ -73,8 +72,6 @@ public class Parqueo {
     public void setIdsG3(int[][] idsG3) {
         this.idsG3 = idsG3;
     }
-    
-    
 
     ///INICIALIZAMOS LAS MATRICES PUBLIC
     public Parqueo() {
@@ -173,4 +170,22 @@ public class Parqueo {
         }
         return false;
     }
+
+    public String getEstadoNivel(char[][] nivel) {
+        int total = 0;
+        int ocupados = 0;
+
+        for (int i = 0; i < nivel.length; i++) {
+            for (int j = 0; j < nivel[i].length; j++) {
+                total++;
+                if (nivel[i][j] != '0') {
+                    ocupados++;
+                }
+            }
+        }
+
+        return ocupados + " espacios ocupados de " + total;
+    }
 }
+
+
