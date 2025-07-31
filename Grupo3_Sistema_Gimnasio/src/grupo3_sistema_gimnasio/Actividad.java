@@ -22,7 +22,12 @@ public class Actividad {
     private int capacidadActividad;
     private int cantidadActual;
 
-    /// INICIALIZAMOS 
+    Actividad(String nombre, String horario, int capacidad) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    /// INICIALIZAMOS
+    /// @return  
 
     public String getNombreActividad() {
         return nombreActividad;
