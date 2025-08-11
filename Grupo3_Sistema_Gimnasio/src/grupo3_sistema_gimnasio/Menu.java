@@ -24,6 +24,7 @@ public class Menu {
         // inicializamos independimente de la opcion que escoja la secretaria 
         gymnova.generarDataInicialActividaddes();
         gymnova.dividirClases();
+        gymnova.llenarCabinas();
 
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea ingresar al menu?");
         boolean estadoMenu = (opcion == JOptionPane.YES_OPTION);
@@ -35,10 +36,11 @@ public class Menu {
                     + "3. Crear Clase \n"
                     + "4. Registrasr a un socio en una clase \n"
                     + "5. Eliminar clase \n"
-                    + "6. Sala de Pesas \n"
-                    + "7. Cabinas Insonorizadas \n"
-                    + "8. Parqueo \n"
-                    + "9. Salir"));
+                    + "6. Eliminar Socio de una clase \n"
+                    + "7. Sala de Pesas \n"
+                    + "8. Cabinas Insonorizadas \n"
+                    + "9. Parqueo \n"
+                    + "10. Salir"));
 
             switch (option2) {
                 case 1:
@@ -63,20 +65,38 @@ public class Menu {
                     gymnova.eliminarClase();
 
                     break;
+
                 case 6:
-                    gymnova.salaPesas();
+                    gymnova.eliminarSocioDeClase();
 
                     break;
                 case 7:
-                    gymnova.llenarCabinas();
-                    gymnova.reservarCabina();
-
-                    break;
-                case 8:
                     gymnova.salaPesas();
 
                     break;
+                case 8:
+                    int hacer = Integer.parseInt(JOptionPane.showInputDialog("Digite: \n"
+                            + "1. Reservar a un Socio en una Cabina \n"
+                            + "2. Ver horarios Resrvados \n"
+                            + "3. Eliminar una reserva"));
+
+                    switch (hacer) {
+                        case 1:
+                            gymnova.reservarCabina();
+                            break;
+                        case 2:
+                            gymnova.mostrarReservarCabinas();
+                            break;
+                        case 3:
+                            gymnova.eliminarReservaDecabina();
+                            break;
+                    }
+                    break;
                 case 9:
+                    gymnova.salaPesas();
+
+                    break;
+                case 10:
                     estadoMenu = false;
                     continue;
                 default:
@@ -85,10 +105,11 @@ public class Menu {
 
             }
 
+            // consultamos si desea seguir editando 
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al MENU");
+            estadoMenu = (respuesta == JOptionPane.YES_OPTION);
+
         }
-        // consultamos si desea seguir editando 
-        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al MENU");
-        estadoMenu = (respuesta == JOptionPane.YES_OPTION);
 
     }
 

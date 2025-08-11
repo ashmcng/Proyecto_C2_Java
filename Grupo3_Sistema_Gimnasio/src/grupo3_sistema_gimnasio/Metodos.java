@@ -95,7 +95,6 @@ public class Metodos {
         
     
 
-    /// anade al array de objetos
 
         }
 
@@ -663,7 +662,7 @@ public class Metodos {
     public void registrarSocioClase() {
         JOptionPane.showMessageDialog(null, "BIENVENIDO AL REGISTRO DE SOCIOS A CLASES");
 
-        visualizarListaSocios(); // llamamos en caso de que necesite ver que so
+     
 
         boolean editarDatos = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
 
@@ -706,6 +705,8 @@ public class Metodos {
                         if (a.getCantidadActual() < a.getCapacidadActividad()) {  // if de si la clase esta llena 
 
                             a.setCantidadActual((a.getCantidadActual() + 1)); // setteamos la cantidad actual 
+                            Socio[] socios = a.getSocios(); // asignamos para modificar
+                            socios[a.getCantidadActual() - 1] = socioEncontrado; // capacidad actual ya que es el ultimo espacio agregado -1 pq capacidad actual empieza en 1 y el arreglo en 0
                         } else {
                             JOptionPane.showMessageDialog(null, "La clase ya esta llena");
                         }
@@ -730,6 +731,46 @@ public class Metodos {
         }
 
         //fin while editar 
+    }
+    
+    /**
+     * This method is to delete a SOCIO from a class
+     */
+    
+    public void eliminarSocioDeClase(){
+        // solicitamos el ID del socio que desea eliminar 
+        
+        visualizarListaSocios();
+        String input = JOptionPane.showInputDialog("Digite el ID del socio que desea eliminar"); 
+        if (input == null) return; //cancelo sale 
+        
+            int idSocio;
+
+        try {
+            idSocio = Integer.parseInt(input); 
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, "El ID no es valido");
+            return;
+        }
+        
+         for (int i = 0; i < totalDeActividades; i++) {  // Buscar el socio en todas las clases
+                    Actividad a = actividades[i];
+                    for (int j = 0; j < a.getSocios().length; j++) {
+                        Socio socio = a.getSocios()[j]; // asignar el posible socio 
+                        if (socio != null && socio.getIdSocio() == idSocio) { // si no es null y es igual al socitado 
+                            //eliminar socio 
+                            a.getSocios()[j] = null; 
+                            JOptionPane.showMessageDialog(null, "Socio eliminado de la clase");
+                            return;              
+                        }
+                 
+             }
+                    
+         }
+         JOptionPane.showMessageDialog(null, "Socio no encontrado");
+
     }
 
     // FIN METODOS CLASE ACTIVIDAD
@@ -844,6 +885,9 @@ public class Metodos {
 
     }
 
+    /**
+     * This method allows to make reservations on cabins
+     */
     public void reservarCabina() {
 
         JOptionPane.showMessageDialog(null, "Bienvenido a la reserva de cabinas, primero debe buscar al socio");
@@ -888,6 +932,12 @@ public class Metodos {
             if (hora == null) {
                 return; // lo cancelo 
             }
+            // ajustar formatop si ingresan ejemplo 7:00
+
+            if (hora.length() == 4) {
+                hora = "0" + hora; // agregamnos el 0 para que se pueda parsear
+
+            }
             LocalTime horarioSolicitado;
             try {
                 horarioSolicitado = LocalTime.parse(hora);
@@ -917,15 +967,129 @@ public class Metodos {
             } else { // si no se cumple ninguna excepcion reservamos normal 
 
                 reservas[indice] = new Reserva(horarioSolicitado, socio.getIdSocio(), socio.getNombreSocio());
-                JOptionPane.showMessageDialog(null, "Reserva confirmada " + cabinas[eleccion].getNombreCabina() + "Para " + socio.getNombreSocio() + "A las " + horarioSolicitado);
+                JOptionPane.showMessageDialog(null, "Reserva confirmada " + cabinas[eleccion].getNombreCabina() + " " + "Para " + socio.getNombreSocio() + " " + "A las " + horarioSolicitado);
             }
 
+            // preguntamos si desea continuar 
+            int respuesta = JOptionPane.showConfirmDialog(null, "Desea hacer otra reserva?", "confirmar", JOptionPane.YES_NO_OPTION); // confirmar para no hacer la conversion por aparte 
+            if (respuesta != JOptionPane.YES_OPTION) {
+                continuar = false; // sale del loop 
+            }
         }
-        // preguntamos si desea continuar 
-        
-        int respuesta = JOptionPane.showConfirmDialog(null, "Desea hacer otra reserva?", "confirmar", JOptionPane.YES_NO_OPTION); // confirmar para no hacer la conversion por aparte 
-        if (respuesta != JOptionPane.YES_OPTION) {
-         continuar = false; // sale del loop 
+
+    }
+
+    /**
+     * this method shows the reserved times
+     */
+    public void mostrarReservarCabinas() {
+
+        // mensaje para luego ensenar en pantalla
+        String mensaje = "Seleccione la cabina de la cual desea ver los horarios ocupados: \n"
+                + "1. Concentracion \n "
+                + "2. Meditacion \n"
+                + "3. Ejercicios Personalizado";
+        String opcion = JOptionPane.showInputDialog(mensaje);
+        int eleccion;
+
+        try {
+            eleccion = Integer.parseInt(opcion) - 1; // -1 pq es para usar en un arreglo
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, "Opcion no valida");
+            return;
+        }
+
+        if (eleccion < 0 || eleccion >= cabinas.length) {
+            JOptionPane.showMessageDialog(null, "Opcion no valida");
+            return;
+        }
+
+        Reserva[] reservas = cabinas[eleccion].getReservas(); // asignamos la reserva para poder usarla 
+
+        StringBuilder mostrar = new StringBuilder();
+
+        mostrar.append("Reservas en Cabina  ").append(cabinas[eleccion].getNombreCabina()).append(": \n");
+
+        boolean tieneReservas = false; // default para luego mostrar el mensaje 
+
+        for (int i = 0; i < reservas.length; i++) {
+            if (reservas[i] != null) {
+                tieneReservas = true; // si no hay null
+                mostrar.append("- ").append(reservas[i].getHora())
+                        .append(" -  ").append(reservas[i].getNombreSocio())
+                        .append("\n");
+            }
+        }
+
+        if (!tieneReservas) {
+            mostrar.append("No hay reservas");
+        }
+
+        // MOSTRAMOS EN PANTALLA EL RESULTADO FINAL 
+        JOptionPane.showMessageDialog(null, mostrar);
+
+    }
+
+    /**
+     * This method allows to delete a reservation from a cabil
+     */
+    public void eliminarReservaDecabina() {
+
+        String mensaje = "Seleccione la cabina de la cual Eliminar una reserva: \n"
+                + "1. Concentracion \n "
+                + "2. Meditacion \n"
+                + "3. Ejercicios Personalizado";
+        String opcion = JOptionPane.showInputDialog(mensaje);
+        int eleccion;
+
+        try {
+            eleccion = Integer.parseInt(opcion) - 1; // -1 pq es para usar en un arreglo
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, "Opcion no valida");
+            return;
+        }
+
+        if (eleccion < 0 || eleccion >= cabinas.length) {
+            JOptionPane.showMessageDialog(null, "Opcion no valida");
+            return;
+        }
+
+        // Pedimos el horario de incio de la reserva 
+        String hora = JOptionPane.showInputDialog("Digite la hora de la reserva (HH:mm): ");
+
+        if (hora == null) {
+            return; // lo cancelo 
+        }
+        // ajustar formatop si ingresan ejemplo 7:00
+
+        if (hora.length() == 4) {
+            hora = "0" + hora; // agregamnos el 0 para que se pueda parsear
+
+        }
+        LocalTime horarioSolicitado;
+        try {
+            horarioSolicitado = LocalTime.parse(hora);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Formnato invalido");
+            return;
+
+        }
+
+        int indice = horaIndice(horarioSolicitado); // cambiamos al indice de los 18 bloques 
+
+        Reserva[] reservas = cabinas[eleccion].getReservas(); // agarranmos el arreglo correspondiente 
+
+        if (reservas[indice] == null) {
+            JOptionPane.showMessageDialog(null, "No hay reservas que eliminar en ese horario");
+        } else {
+            reservas[indice] = null; // eliminamos haciendo null
+            JOptionPane.showMessageDialog(null, "Reserva Eliminada correctamente.");
+
         }
 
     }

@@ -23,13 +23,19 @@ public class Actividad {
     private int numeroUnico; 
     private int capacidadActividad;
     private int cantidadActual;
-    
-    
+    private Socio[] socios = new Socio[50]; // array para guardar los que se inscriben   
 
-  
+    
+    public Socio[] getSocios() {
+        return socios;
+    }
 
     /// INICIALIZAMOS
-    /// @return  
+    /// @return
+    
+    public void setSocios(Socio[] socios) {
+        this.socios = socios;
+    }
 
     public String getNombreActividad() {
         return nombreActividad;

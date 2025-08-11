@@ -60,9 +60,10 @@ public class Socio {
 
     public Socio[] getSocio() {
 
-        Socio[] socios = new Socio[2];
+        Socio[] socios = new Socio[3];
         socios[0] = new Socio("Juan", 1252, true);
         socios[1] = new Socio("Matias", 3828, false);
+        socios[2] = new Socio("Fiorella", 2005, true);
 
         return socios;
 
