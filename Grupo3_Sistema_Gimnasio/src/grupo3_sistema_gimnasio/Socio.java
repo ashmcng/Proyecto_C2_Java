@@ -4,19 +4,20 @@
  */
 package grupo3_sistema_gimnasio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author ashle
  */
 public class Socio {
-    
+
     // DEFINIMOS VARIABLES 
-    
-    private String nombreSocio; 
-    private int idSocio; 
-    private boolean membresiaSocio; 
-    
-    
+    private String nombreSocio;
+    private int idSocio;
+    private boolean membresiaSocio;
+
     /// INICIALIZAMOS
 
     public String getNombreSocio() {
@@ -49,8 +50,22 @@ public class Socio {
         this.membresiaSocio = membresiaSocio;
     }
 
-    
-    
-    
-    
+    public Socio() {
+    }
+
+    @Override
+    public String toString() {
+        return "Nombre Socio: " + nombreSocio + " " + "ID Socio: " + idSocio + " " + "Membresia Socio: " + membresiaSocio;
+    }
+
+    public Socio[] getSocio() {
+
+        Socio[] socios = new Socio[2];
+        socios[0] = new Socio("Juan", 1252, true);
+        socios[1] = new Socio("Matias", 3828, false);
+
+        return socios;
+
+    }
+
 }

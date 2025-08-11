@@ -6,6 +6,8 @@ package grupo3_sistema_gimnasio;
 
 import java.io.File;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -18,91 +20,7 @@ public class Grupo3_Sistema_Gimnasio {
     /**
      * @param args the command line arguments
      */
-    /// CREAMOS CLASE PREDETERMINADAS Y LA NUEVA CLASE
-        
-    private static Actividad nuevaActividad;
-    private static Actividad Yoga = new Actividad("Yoga", LocalTime.of(6, 0), 6, 0);
-    private static Actividad Crossfit = new Actividad("Crossfit", LocalTime.of(7, 0), 7, 0);
-    private static Actividad Zumba = new Actividad("Zumba", LocalTime.of(8, 0), 8, 0);
-    private static Actividad Pilates = new Actividad("Pilates", LocalTime.of(17, 0), 13, 0);
-    private static Actividad funcionales = new Actividad("funcionales", LocalTime.of(18, 0), 7, 0);
-    private static Actividad Boxeo = new Actividad("Boxeo", LocalTime.of(19, 0), 11, 0);
-    private static Socio socio1 = new Socio("Juan", 1252, true);
-    private static Socio socio3 = new Socio("Matias", 3828, false);
 
-    // INICILIZAMOS TODOS LOS OBJETOS
-    public static Socio getSocio3() {
-        return socio3;
-    }
-
-    public static void setSocio3(Socio socio3) {
-        Grupo3_Sistema_Gimnasio.socio3 = socio3;
-    }
-
-    public static Socio getSocio1() {
-        return socio1;
-    }
-
-    public static void setSocio1(Socio socio1) {
-        Grupo3_Sistema_Gimnasio.socio1 = socio1;
-    }
-
-    public static Actividad getNuevaActividad() {
-
-        return nuevaActividad;
-    }
-
-    public static void setNuevaActividad(Actividad nuevaActividad) {
-        Grupo3_Sistema_Gimnasio.nuevaActividad = nuevaActividad;
-    }
-
-    public static Actividad getYoga() {
-        return Yoga;
-    }
-
-    public static void setYoga(Actividad Yoga) {
-        Grupo3_Sistema_Gimnasio.Yoga = Yoga;
-    }
-
-    public static Actividad getCrossfit() {
-        return Crossfit;
-    }
-
-    public static void setCrossfit(Actividad Crossfit) {
-        Grupo3_Sistema_Gimnasio.Crossfit = Crossfit;
-    }
-
-    public static Actividad getZumba() {
-        return Zumba;
-    }
-
-    public static void setZumba(Actividad Zumba) {
-        Grupo3_Sistema_Gimnasio.Zumba = Zumba;
-    }
-
-    public static Actividad getPilates() {
-        return Pilates;
-    }
-
-    public static void setPilates(Actividad Pilates) {
-        Grupo3_Sistema_Gimnasio.Pilates = Pilates;
-    }
-
-    public static Actividad getFuncionales() {
-        return funcionales;
-    }
-
-    public static void setFuncionales(Actividad funcionales) {
-        Grupo3_Sistema_Gimnasio.funcionales = funcionales;
-    }
-
-    public static Actividad getBoxeo() {
-        return Boxeo;
-    }
-
-    public static void setBoxeo(Actividad Boxeo) {
-        Grupo3_Sistema_Gimnasio.Boxeo = Boxeo;
-    }
 
     public static void main(String[] args) {
         
@@ -116,8 +34,13 @@ public class Grupo3_Sistema_Gimnasio {
             
             return; //  esto evita que continúe el resto del código
         }
-
         
+        // Llamamos al menu 
+        
+        Menu menu = new Menu(); 
+        menu.mostrarMenu(); 
+      
+        /**
         /// EJECUTA SOLO SI LA OTRA OPCION ES FALSA MENU DE CREAR ACTIVIDAD, MOSTRAR ESTADO DE ACTIVIDADES Y EDITAR LAS ACTIVIDADES
         
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea ingresar al menu?");
@@ -200,7 +123,7 @@ public class Grupo3_Sistema_Gimnasio {
                     }
                     break;
                 case 3:
-                    nuevaActividad = new Actividad(" ", LocalTime.of(0, 0), 0, 0);
+                    // nuevaActividad = new Actividad(" ", LocalTime.of(0, 0), 0, 0);
                     nuevaActividad.crearActividad(); // LLENAR LA INFO DE LA ACTIVIDAD
                     nuevaActividad.editarCuestionario(); // Editar actividad creada
                     JOptionPane.showInternalMessageDialog(null, nuevaActividad.toString());
@@ -351,6 +274,7 @@ public class Grupo3_Sistema_Gimnasio {
         int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al MENU");
         estadoMenu = (respuesta == JOptionPane.YES_OPTION);
 
+* */
     }
       
 }

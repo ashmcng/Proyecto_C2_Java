@@ -213,18 +213,23 @@ public class GUI extends JFrame {
         panelParqueo.add(comboNiveles);
         panelParqueo.add(Box.createVerticalStrut(15));
 
+        /** DA ERROR 
+         * 
+        
         // Combo socios
         String[] socios = {
             Grupo3_Sistema_Gimnasio.getSocio1().getNombreSocio() + " (ID: " + Grupo3_Sistema_Gimnasio.getSocio1().getIdSocio() + ")",
             Grupo3_Sistema_Gimnasio.getSocio3().getNombreSocio() + " (ID: " + Grupo3_Sistema_Gimnasio.getSocio3().getIdSocio() + ")"
         };
+        
+        * 
         JComboBox<String> comboSocios = new JComboBox<>(socios);
         comboSocios.setFont(nunitoBold);
         comboSocios.setMaximumSize(new Dimension(300, 30));
         panelParqueo.add(new JLabel("Seleccione Socio:"));
         panelParqueo.add(comboSocios);
         panelParqueo.add(Box.createVerticalStrut(15));
-
+*/
         // Área de estado (la hacemos global)
         estadoParqueo = new JTextArea(5, 40);
         estadoParqueo.setEditable(false);
@@ -243,6 +248,7 @@ public class GUI extends JFrame {
         btnAsignar.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelParqueo.add(btnAsignar);
 
+        /** DA ERROR 
         btnAsignar.addActionListener(e -> {
             String nivel = (String) comboNiveles.getSelectedItem();
             int idSocio = comboSocios.getSelectedIndex() == 0
@@ -260,7 +266,7 @@ public class GUI extends JFrame {
 
             actualizarEstadoParqueo();
         });
-
+*/
         // Botón Volver
         JButton btnVolver = new JButton("Volver al menú");
         btnVolver.setFont(nunitoBold.deriveFont(14f));
@@ -314,7 +320,7 @@ public class GUI extends JFrame {
         JPanel listaClases = new JPanel();
         listaClases.setLayout(new BoxLayout(listaClases, BoxLayout.Y_AXIS));
         listaClases.setBackground(fondo);
-
+/** DA ERROR 
         // Clases de la mañana
         JLabel maniana = new JLabel("MAÑANA:");
         maniana.setFont(nunitoBold.deriveFont(18f));
@@ -336,6 +342,7 @@ public class GUI extends JFrame {
 
         listaClases.add(Box.createVerticalStrut(20));
 
+        
         // Clases de la tarde
         JLabel tarde = new JLabel("TARDE:");
         tarde.setFont(nunitoBold.deriveFont(18f));
@@ -359,7 +366,7 @@ public class GUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(listaClases);
         panelClases.add(scrollPane);
         panelClases.add(Box.createVerticalStrut(20));
-
+**/
         // Botón para volver
         JButton volverButton = new JButton("Volver al Menú");
         volverButton.setFont(nunitoBold.deriveFont(16f));
@@ -425,10 +432,10 @@ public class GUI extends JFrame {
                 int capacidad = Integer.parseInt(campoCapacidad.getText());
 
                 // Crea una nueva actividad y agregarla a las existentes
-                Actividad nuevaActividad = new Actividad(nombre, horario, capacidad);
+                // ESTA DANDO ERROR Actividad nuevaActividad = new Actividad(nombre, horario, capacidad);
 
                 // Se llaman a los métodos originales para incluir la nueva actividad
-                agregarActividadASistema(nuevaActividad);
+               // ESTA DANDO ERROR  agregarActividadASistema(nuevaActividad);
                 mostrarPanelClasesDisponibles();
 
                 //Por si se ingresa una letra en donde va la capacidad del numero
