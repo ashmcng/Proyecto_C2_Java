@@ -4,6 +4,7 @@
  */
 package grupo3_sistema_gimnasio;
 
+import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,36 +12,73 @@ import javax.swing.JOptionPane;
  * @author isaacherrera
  */
 public class auditorioFitness {
+    private String dia; 
+    private String nombre; 
+    private LocalTime hora; 
+    private Socio[] inscritos; // ya que hay multiples eventos
+    private int contadorInscritos; 
+
+    public auditorioFitness(String dia, String nombre, LocalTime hora) {
+        this.dia = dia;
+        this.nombre = nombre;
+        this.hora = hora;
+        this.inscritos = new Socio[30]; //fijo
+        this.contadorInscritos = 0; 
+                
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
+    }
     
-     private int capacidadMaxima = 30;
-    private int capacidadActual = 0;
-
-    public boolean registrarEntrada(Socio socio) {
-        if (!socio.isMembresiaSocio()) {
-            JOptionPane.showMessageDialog(null, "Membresía no válida. Acceso denegado.");
-            return false;
+    public boolean agregarSocio(Socio socio){
+        if (contadorInscritos >= inscritos.length) {
+            return false; 
+        
         }
-        if (capacidadActual >= capacidadMaxima) {
-            JOptionPane.showMessageDialog(null, "El auditorio está lleno.");
-            return false;
-        }
-        capacidadActual++;
-        JOptionPane.showMessageDialog(null, "Entrada registrada. Asistentes: " + capacidadActual);
-        return true;
+        inscritos[contadorInscritos++]= socio;
+        return true; 
+    
     }
 
-    public boolean registrarSalida(Socio socio) {
-        if (capacidadActual <= 0) {
-            JOptionPane.showMessageDialog(null, "No hay asistentes en el auditorio.");
-            return false;
-        }
-        capacidadActual--;
-        JOptionPane.showMessageDialog(null, "Salida registrada. Asistentes restantes: " + capacidadActual);
-        return true;
+    public Socio[] getInscritos() {
+        return inscritos;
     }
 
-    public void verAsistencia() {
-        JOptionPane.showMessageDialog(null, "Asistencia actual: " + capacidadActual + " / " + capacidadMaxima);
+    public void setInscritos(Socio[] inscritos) {
+        this.inscritos = inscritos;
     }
+
+    public int getContadorInscritos() {
+        return contadorInscritos;
+    }
+
+    public void setContadorInscritos(int contadorInscritos) {
+        this.contadorInscritos = contadorInscritos;
+    }
+    
+    
+    
+    
 }
 

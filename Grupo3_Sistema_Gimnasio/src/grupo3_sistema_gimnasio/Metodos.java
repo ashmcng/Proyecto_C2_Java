@@ -45,6 +45,14 @@ public class Metodos {
     cabinasInsonorizadas[] cabinas = new cabinasInsonorizadas[3];
     public static final int duracionMaxima = 30; // 30 minutos cada secion  
 
+    // AREGLO AUDITORIO FITNESS
+    private auditorioFitness[] eventosAuditorio = {
+        new auditorioFitness("Lunes", "Charla Nutricion", LocalTime.of(10, 0)),
+        new auditorioFitness("Martes", "Fisioterapia", LocalTime.of(15, 0)),
+        new auditorioFitness("Miercoles", "Relajacion", LocalTime.of(10, 30)),
+        new auditorioFitness("Jueves", "Motivavion Deportiva", LocalTime.of(15, 0)),
+        new auditorioFitness("Viernes", "preveencion De Lesiones", LocalTime.of(10, 0))};
+
     // INCIALIZAR CLASES DE ACTIVIDADES 
     /**
      * THIS METHOD FILLS OUT RANDOMLY THE INITIAL DATA OF THE PREDITERMINATED
@@ -92,12 +100,7 @@ public class Metodos {
             actividades[totalDeActividades] = actividad; // anade 
             totalDeActividades++; //suma 
 
-        
-    
-
-
         }
-
 
     }
 
@@ -662,8 +665,6 @@ public class Metodos {
     public void registrarSocioClase() {
         JOptionPane.showMessageDialog(null, "BIENVENIDO AL REGISTRO DE SOCIOS A CLASES");
 
-     
-
         boolean editarDatos = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
 
         while (editarDatos) {
@@ -732,44 +733,44 @@ public class Metodos {
 
         //fin while editar 
     }
-    
+
     /**
      * This method is to delete a SOCIO from a class
      */
-    
-    public void eliminarSocioDeClase(){
+    public void eliminarSocioDeClase() {
         // solicitamos el ID del socio que desea eliminar 
-        
+
         visualizarListaSocios();
-        String input = JOptionPane.showInputDialog("Digite el ID del socio que desea eliminar"); 
-        if (input == null) return; //cancelo sale 
-        
-            int idSocio;
+        String input = JOptionPane.showInputDialog("Digite el ID del socio que desea eliminar");
+        if (input == null) {
+            return; //cancelo sale 
+        }
+        int idSocio;
 
         try {
-            idSocio = Integer.parseInt(input); 
+            idSocio = Integer.parseInt(input);
 
         } catch (NumberFormatException e) {
 
             JOptionPane.showMessageDialog(null, "El ID no es valido");
             return;
         }
-        
-         for (int i = 0; i < totalDeActividades; i++) {  // Buscar el socio en todas las clases
-                    Actividad a = actividades[i];
-                    for (int j = 0; j < a.getSocios().length; j++) {
-                        Socio socio = a.getSocios()[j]; // asignar el posible socio 
-                        if (socio != null && socio.getIdSocio() == idSocio) { // si no es null y es igual al socitado 
-                            //eliminar socio 
-                            a.getSocios()[j] = null; 
-                            JOptionPane.showMessageDialog(null, "Socio eliminado de la clase");
-                            return;              
-                        }
-                 
-             }
-                    
-         }
-         JOptionPane.showMessageDialog(null, "Socio no encontrado");
+
+        for (int i = 0; i < totalDeActividades; i++) {  // Buscar el socio en todas las clases
+            Actividad a = actividades[i];
+            for (int j = 0; j < a.getSocios().length; j++) {
+                Socio socio = a.getSocios()[j]; // asignar el posible socio 
+                if (socio != null && socio.getIdSocio() == idSocio) { // si no es null y es igual al socitado 
+                    //eliminar socio 
+                    a.getSocios()[j] = null;
+                    JOptionPane.showMessageDialog(null, "Socio eliminado de la clase");
+                    return;
+                }
+
+            }
+
+        }
+        JOptionPane.showMessageDialog(null, "Socio no encontrado");
 
     }
 
@@ -1093,4 +1094,201 @@ public class Metodos {
         }
 
     }
+
+    //FIN METODOS CABINA
+    
+    // METODOS AUDITORIO FITNESS
+    
+   /**
+     * This method shows the available talks on the auditorium
+     */
+    public void mostrarHorarioAuditorio() {
+
+        StringBuilder mostrar = new StringBuilder("Programacion semanal del Auditorio: \n\n");
+
+        for (auditorioFitness a : eventosAuditorio) {
+            mostrar.append(a.getDia())
+                    .append(" - ")
+                    .append(a.getNombre())
+                    .append(" a las ")
+                    .append(a.getHora())
+                    .append("\n");
+
+        }
+        JOptionPane.showMessageDialog(null, mostrar);
+    }
+
+    /**
+     * This method allows to subscribe a SOCIO to an auditorium event
+     */
+    public void inscribirSocioAuditorio() {
+        mostrarHorarioAuditorio();
+
+        String diaEvento = JOptionPane.showInputDialog("Digite el Dia del Evento en el que desea incribir al Socio: ");
+        if (diaEvento == null) {
+            return; // cancelado 
+        }
+        auditorioFitness eventoSeleccionado = null;
+
+        for (auditorioFitness a : eventosAuditorio) { // buscamos
+            if (a.getDia().equalsIgnoreCase(diaEvento.trim())) {
+
+                eventoSeleccionado = a; // si son igulaes asignamos 
+                break;
+            }
+        }
+        if (eventoSeleccionado == null) {
+
+            JOptionPane.showMessageDialog(null, "No hay evento programado para ese dia");
+            return;
+        }
+
+        if (eventoSeleccionado != null
+                && eventoSeleccionado.getInscritos() != null
+                && eventoSeleccionado.getInscritos().length > 0
+                && eventoSeleccionado.getInscritos()[eventoSeleccionado.getInscritos().length - 1] != null) {
+
+            JOptionPane.showMessageDialog(null, "El evento ya esta en la capacidad maxima de 30 personas");
+            return;
+        }
+
+        Socio socio = buscarSocios();
+
+        boolean agregado = eventoSeleccionado.agregarSocio(socio);
+
+        if (agregado) {
+            JOptionPane.showMessageDialog(null, "El socio se incribio al evento con exito");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo inscribir al socio al evento");
+
+        }
+
+    }
+
+    /**
+     * this method is to show the people in a event
+     */
+    public void mostrarInscritosAuditorio() {
+        mostrarHorarioAuditorio();
+        String diaEvento = JOptionPane.showInputDialog("Digite el Dia del Evento en el que desea incribir al Socio: ");
+        if (diaEvento == null) {
+            return; // cancelado 
+        }
+
+        auditorioFitness eventoSeleccionado = null;
+
+        for (auditorioFitness a : eventosAuditorio) {
+            if (a.getDia().equalsIgnoreCase(diaEvento.trim())) {
+
+                eventoSeleccionado = a;
+                break;
+            }
+
+        }
+
+        if (eventoSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "No existe evento para ese dia");
+            return;
+
+        }
+        StringBuilder mostrar = new StringBuilder(" Inscritos para " + eventoSeleccionado.getNombre());
+
+        Socio[] inscritos = eventoSeleccionado.getInscritos(); // asignamos para poder usar
+        boolean haySocios = false;
+        for (Socio s : inscritos) {
+
+            if (s != null) {
+                mostrar.append(" ID: ").append(s.getIdSocio()).append(" - ").append(s.getNombreSocio()).append("\n");
+                haySocios = true;
+
+            }
+
+        }
+
+        if (!haySocios) {
+            mostrar.append("No hay socios inscritos");
+
+        }
+        JOptionPane.showMessageDialog(null, mostrar.toString());
+
+    } 
+    
+    /**'
+     * This method allows to delete a seat on an event
+     */
+    
+    public void eliminarSocioInscripcion (){
+         String diaEvento = JOptionPane.showInputDialog("Digite el Dia del Evento en el que desea incribir al Socio: ");
+        if (diaEvento == null) {
+            return; // cancelado 
+        }
+        
+        // buscamos en el arreglo
+        
+        auditorioFitness eventoSeleccionado = null; 
+        
+        for (auditorioFitness a : eventosAuditorio) {
+            if (a.getDia().equalsIgnoreCase(diaEvento.trim())) {
+
+                eventoSeleccionado = a;
+                break;
+            }
+
+        }
+
+        if (eventoSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "No existe evento para ese dia");
+            return;
+
+        }
+        
+        // pedir el socio 
+        
+        String inputId = JOptionPane.showInputDialog("Digit el ID del socio que desea eliminar");
+        if (inputId == null) return; 
+        
+        int idSocio; 
+        try {
+            idSocio = Integer.parseInt(inputId); 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El ID debe ser un numeor valido");
+            return;
+        }
+        
+        
+        // buscar al socio en inscritos
+        
+        Socio[] inscritos = eventoSeleccionado.getInscritos(); 
+        int contador = eventoSeleccionado.getContadorInscritos(); 
+        boolean eliminado = false; 
+        
+        for (int i = 0; i < contador; i++) {
+            Socio s = inscritos[i]; // asignamos
+            
+            if ( s != null && s.getIdSocio() == idSocio) { // si no es nulo y igual al que se escribio
+            
+            // moverlos a la izquierda del arreglo
+                for (int j = 0; j < contador; j++) {
+                    inscritos[j] = inscritos[j + 1];
+                    
+                }
+            }
+            inscritos[contador - 1] = null; // eliminamos
+            eventoSeleccionado.setContadorInscritos(contador - 1);
+            JOptionPane.showMessageDialog(null, "Socio eliminado correctamente");
+            eliminado = true; 
+            break;
+            
+        }
+        
+        
+        if (!eliminado){
+            JOptionPane.showMessageDialog(null, "Elsocio no esta inscito en el eveto");
+        
+        }
+    }
+    
+    
+
 }

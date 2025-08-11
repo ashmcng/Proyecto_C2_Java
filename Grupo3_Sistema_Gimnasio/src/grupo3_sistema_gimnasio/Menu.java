@@ -39,8 +39,9 @@ public class Menu {
                     + "6. Eliminar Socio de una clase \n"
                     + "7. Sala de Pesas \n"
                     + "8. Cabinas Insonorizadas \n"
-                    + "9. Parqueo \n"
-                    + "10. Salir"));
+                    + "9. Auditorio Fitness \n"
+                    + "10. Parqueo \n"
+                    + "11. Salir"));
 
             switch (option2) {
                 case 1:
@@ -93,10 +94,31 @@ public class Menu {
                     }
                     break;
                 case 9:
-                    gymnova.salaPesas();
-
+                    int hacer1 = Integer.parseInt(JOptionPane.showInputDialog("Digite: \n"
+                            + "1. Ver programacion del Auditotio Fitness \n"
+                            + "2. Inscribir a Socio a un Evento \n"
+                            + "3. Mostrar inscritos \n"
+                            + "4. Eliminar Socio de un Evento"));
+                    switch (hacer1) {
+                        case 1:
+                            gymnova.mostrarHorarioAuditorio();
+                            break;
+                        case 2:
+                            gymnova.inscribirSocioAuditorio();
+                            break;
+                        case 3: 
+                            gymnova.mostrarInscritosAuditorio();
+                            break; 
+                        case 4:
+                            gymnova.eliminarSocioInscripcion();
+                            break;
+                    }
                     break;
+
                 case 10:
+                    gymnova.salaPesas();
+                    break;
+                case 11:
                     estadoMenu = false;
                     continue;
                 default:
