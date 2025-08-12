@@ -83,17 +83,28 @@ public class Parqueo {
         idsG2 = new int[5][5];
         idsG3 = new int[6][5];
     }
+    
+    /**
+     * This method starts the levels of parking
+     */
 
     public void inicializarNiveles() {
         inicializarNivelCondicion(nivelG1, idsG1, "G1"); //llamamos al inicializador de condicion
         inicializarNivelCondicion(nivelG2, idsG2, "G2");
         inicializarNivelCondicion(nivelG3, idsG3, "G3");
-        mostrarNivel(nivelG1, "G1");
-        mostrarNivel(nivelG2, "G2");
-        mostrarNivel(nivelG3, "G3");
+       // mostrarNivel(nivelG1, "G1");
+        //mostrarNivel(nivelG2, "G2");
+      //  mostrarNivel(nivelG3, "G3");
     }
 
     // LLENAMOS LAS MATRICES DE LIBRE
+    
+    /**
+     * This method is to add the specific parking spaces like senior 
+     * @param nivel
+     * @param ids
+     * @param tipo 
+     */
     private void inicializarNivelCondicion(char[][] nivel, int[][] ids, String tipo) {
         for (int i = 0; i < nivel.length; i++) {
             for (int j = 0; j < nivel[0].length; j++) {
@@ -121,6 +132,11 @@ public class Parqueo {
         }
     }
 
+    /**
+     * This method is to show the status of a parking level
+     * @param nivel
+     * @param nombreNivel 
+     */
     public void mostrarNivel(char[][] nivel, String nombreNivel) {
         StringBuilder resultado = new StringBuilder(); // impresion mas compacta
         resultado.append("nivel ").append(nombreNivel).append("\n"); // inyectar los datos al nivel correspondiente
@@ -144,6 +160,13 @@ public class Parqueo {
 
     }
 
+    /**
+     * This method is to park
+     * @param nivel
+     * @param ids
+     * @param idSocio
+     * @return 
+     */
     public boolean asignarEspacio(char[][] nivel, int[][] ids, int idSocio) {
         String filaInput = JOptionPane.showInputDialog("Digite la letra de la fila que desea parquear A - B - C - D");
         String columnaInput = JOptionPane.showInputDialog("Digite el numero de la columna 1 - 2 - 3 ....");
@@ -158,7 +181,7 @@ public class Parqueo {
                 nivel[fila][columna] = 'O'; //  sale como ocupado
                 ids[fila][columna] = idSocio; // sacomos id de clase socio
                 JOptionPane.showInternalMessageDialog(null, "Se Asigno el parqueo correctamente");
-                mostrarNivel(nivel, columnaInput);
+                mostrarNivel(nivel, "Nivel Parqueo");
                 return true;
             } else if (espacio == 'D') {
                 JOptionPane.showInternalMessageDialog(null, "Espacio de discapacitados");
@@ -171,6 +194,11 @@ public class Parqueo {
         return false;
     }
 
+    /**
+     * this method is to see the available spots 
+     * @param nivel
+     * @return 
+     */
     public String getEstadoNivel(char[][] nivel) {
         int total = 0;
         int ocupados = 0;
@@ -178,7 +206,7 @@ public class Parqueo {
         for (int i = 0; i < nivel.length; i++) {
             for (int j = 0; j < nivel[i].length; j++) {
                 total++;
-                if (nivel[i][j] != '0') {
+                if (nivel[i][j] == '0') {
                     ocupados++;
                 }
             }

@@ -52,8 +52,23 @@ public class Metodos {
         new auditorioFitness("Miercoles", "Relajacion", LocalTime.of(10, 30)),
         new auditorioFitness("Jueves", "Motivavion Deportiva", LocalTime.of(15, 0)),
         new auditorioFitness("Viernes", "preveencion De Lesiones", LocalTime.of(10, 0))};
+    
+    // Parqueo 
+    
+       Parqueo parqueoGymNova = new Parqueo();
+     
+       /**
+        * This is just to startup parking 
+        */
+       public  void inicializarParqueo(){
+       parqueoGymNova.inicializarNiveles();
+       
+       }
+       
+       
 
     // INCIALIZAR CLASES DE ACTIVIDADES 
+    
     /**
      * THIS METHOD FILLS OUT RANDOMLY THE INITIAL DATA OF THE PREDITERMINATED
      * ACTIVITIES FOR THE GYM
@@ -1289,6 +1304,76 @@ public class Metodos {
         }
     }
     
+    // FIN METODS CABINA FITNESS
+    
+    // Inicio metodos parqueo 
+    
+    public void parqueo(){
+        
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea parquear?");
+
+        boolean parquear = (opcion == JOptionPane.YES_OPTION);
+                    
+                    while (parquear) {
+
+                    int parqueo1;
+                    
+                    parqueo1 = Integer.parseInt(JOptionPane.showInputDialog("Seleccione 1. Menu de Parqueo, 2. Salir"));
+                    
+                        switch (parqueo1) {
+
+                            case 1:
+                                JOptionPane.showMessageDialog(null, "ESTE ES EL ESTADO ACTUAL DE LOS PARQUEOS");
+                              
+                                int nivel = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el nivel del parqueo: 1. G1, 2. G2, 3. G3"));
+                                
+                                int idSocio = 0; 
+                                
+                               // buscamos al socio
+                                
+                                Socio socioSelec = buscarSocios(); 
+
+                                if (socioSelec != null) { // si el socio no es null
+                                  idSocio = socioSelec.getIdSocio(); 
+                               
+
+                                if (nivel == 1) {
+                                    parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG1(), parqueoGymNova.getIdsG1(), idSocio);
+                                } else if (nivel == 2) {
+                                    parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG2(), parqueoGymNova.getIdsG2(), idSocio);
+                                } else if (nivel == 3) {
+                                    parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG3(), parqueoGymNova.getIdsG3(), idSocio);
+                                }
+                               
+                                 } else {
+                                    
+                                    JOptionPane.showMessageDialog(null, "No se parqueo el socio");
+                                
+                                }
+                                
+                                break;
+                               
+                            case 2:
+                                JOptionPane.showMessageDialog(null, "Gracias por usar el parqueo!!");
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "La opcion selecionada no es valida");
+                                break;
+                                
+                        }
+                        
+                        
+                        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al parqueo?");
+                        parquear = (respuesta == JOptionPane.YES_OPTION);
+                        
+                    }
+    
+        
+    
+    }
+    
+    
+    // Fin metodos del parqueo 
     
 
 }

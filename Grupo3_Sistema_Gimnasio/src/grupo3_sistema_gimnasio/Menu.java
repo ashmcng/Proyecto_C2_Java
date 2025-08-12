@@ -25,6 +25,7 @@ public class Menu {
         gymnova.generarDataInicialActividaddes();
         gymnova.dividirClases();
         gymnova.llenarCabinas();
+        gymnova.inicializarParqueo();
 
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea ingresar al menu?");
         boolean estadoMenu = (opcion == JOptionPane.YES_OPTION);
@@ -40,8 +41,9 @@ public class Menu {
                     + "7. Sala de Pesas \n"
                     + "8. Cabinas Insonorizadas \n"
                     + "9. Auditorio Fitness \n"
-                    + "10. Parqueo \n"
-                    + "11. Salir"));
+                    + "10. Sala de pesas \n"
+                    + "11. Parqueo \n"
+                    + "12. Salir"));
 
             switch (option2) {
                 case 1:
@@ -106,9 +108,9 @@ public class Menu {
                         case 2:
                             gymnova.inscribirSocioAuditorio();
                             break;
-                        case 3: 
+                        case 3:
                             gymnova.mostrarInscritosAuditorio();
-                            break; 
+                            break;
                         case 4:
                             gymnova.eliminarSocioInscripcion();
                             break;
@@ -119,6 +121,10 @@ public class Menu {
                     gymnova.salaPesas();
                     break;
                 case 11:
+                    gymnova.parqueo();
+                    break;
+
+                case 12:
                     estadoMenu = false;
                     continue;
                 default:
