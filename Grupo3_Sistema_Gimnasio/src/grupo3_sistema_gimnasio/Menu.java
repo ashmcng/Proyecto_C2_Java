@@ -42,8 +42,9 @@ public class Menu {
                     + "8. Cabinas Insonorizadas \n"
                     + "9. Auditorio Fitness \n"
                     + "10. Sala de pesas \n"
-                    + "11. Parqueo \n"
-                    + "12. Salir"));
+                    + "11. Espacios Recreativos\n"
+                    + "12. Parqueo \n"
+                    + "13. Salir"));
 
             switch (option2) {
                 case 1:
@@ -120,11 +121,16 @@ public class Menu {
                 case 10:
                     gymnova.salaPesas();
                     break;
-                case 11:
+                    
+                      case 11:
+                         // AQUI SE INSTANCEAN LOS METODOS DE LOS ESPACIOS RECREATIVOS CON UN SIWTHC PARA QUE ESCOJA LA SECRETARIA 
+                    
+                    break;
+                case 12:
                     gymnova.parqueo();
                     break;
 
-                case 12:
+                case 13:
                     estadoMenu = false;
                     continue;
                 default:
