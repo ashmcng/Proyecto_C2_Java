@@ -4,10 +4,6 @@
  */
 package grupo3_sistema_gimnasio;
 
-import java.io.File;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
