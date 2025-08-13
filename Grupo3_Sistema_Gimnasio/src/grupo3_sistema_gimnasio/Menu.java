@@ -139,7 +139,7 @@ public class Menu {
                             gymnova.visualizarEspaciosRecreativos();
                             break;
                         case 2:
-                           
+                           gymnova.registrarSocioEnEspacio();
                             break;
                         case 3:
                            

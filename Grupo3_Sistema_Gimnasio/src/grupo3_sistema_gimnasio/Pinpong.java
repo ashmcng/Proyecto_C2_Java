@@ -15,11 +15,13 @@ public class Pinpong extends espacioRecreativo {
        private int cantidadReservas; 
        private int reservasDisponibles = maxReservas - cantidadReservas; 
 
-    public Pinpong(int capacidadMaxima, int capacidadActual, String nombreEspacio) {
-        super(capacidadMaxima, capacidadActual, nombreEspacio);
-        this.reserva = new Reserva[maxReservas]; // valor fijo de bloque de 18 
-        this.cantidadReservas = 0;
+    public Pinpong(int capacidadMaxima, int capacidadActual, String nombreEspacio, int idUnicoEspacio) {
+        super(capacidadMaxima, capacidadActual, nombreEspacio, idUnicoEspacio);
+        this.reserva = new Reserva[maxReservas];
+        this.cantidadReservas = cantidadReservas;
     }
+
+    
 
     public Reserva[] getReserva() {
         return reserva;
@@ -39,7 +41,7 @@ public class Pinpong extends espacioRecreativo {
 
     @Override
     public String toString() {
-        return  "Espacio: " + this.getNombreEspacio() + " " + "Reservas Disponibles: " + reservasDisponibles;
+        return  "Espacio: " + this.getNombreEspacio() + " ID Espacio: " + this.getIdUnicoEspacio() + " " + "Reservas Disponibles: " + reservasDisponibles;
     }
 
         

@@ -50,38 +50,32 @@ public class Metodos {
         new auditorioFitness("Miercoles", "Relajacion", LocalTime.of(10, 30)),
         new auditorioFitness("Jueves", "Motivavion Deportiva", LocalTime.of(15, 0)),
         new auditorioFitness("Viernes", "preveencion De Lesiones", LocalTime.of(10, 0))};
-    
-     // Espacios recreativos 
-       
-     espacioRecreativo[] espaciosRecreativos = new espacioRecreativo[6]; // solo hay 6 espacios
-     
-     public void incializarEspaciosRecreativos(){
-     espaciosRecreativos[0] = new espacioRecreativo(12, 0, "Cancha Futbol 1");
-     espaciosRecreativos[1] = new espacioRecreativo(12, 0, "Cancha Futbol 2");
-     espaciosRecreativos[2] = new espacioRecreativo(2, 0, "Tenis 1");
-     espaciosRecreativos[3] = new espacioRecreativo(2, 0, "Tenis 2");
-     espaciosRecreativos[4] = new espacioRecreativo(10, 0, "Baloncesto");
-     espaciosRecreativos[5] = new Pinpong(2, 0, "Pinpong");
-     }
-     
-     //fin
 
+    // Espacios recreativos 
+    espacioRecreativo[] espaciosRecreativos = new espacioRecreativo[6]; // solo hay 6 espacios
+
+    public void incializarEspaciosRecreativos() {
+        espaciosRecreativos[0] = new espacioRecreativo(12, 0, "Cancha Futbol 1", 100);
+        espaciosRecreativos[1] = new espacioRecreativo(12, 0, "Cancha Futbol 2", 101);
+        espaciosRecreativos[2] = new espacioRecreativo(2, 0, "Tenis 1", 102);
+        espaciosRecreativos[3] = new espacioRecreativo(2, 0, "Tenis 2", 103);
+        espaciosRecreativos[4] = new espacioRecreativo(10, 0, "Baloncesto", 104);
+        espaciosRecreativos[5] = new Pinpong(2, 0, "Pinpong", 105);
+    }
+
+    //fin
     // Parqueo 
-    
-       Parqueo parqueoGymNova = new Parqueo();
-     
-       /**
-        * This is just to startup parking 
-        */
-       public  void inicializarParqueo(){
-       parqueoGymNova.inicializarNiveles();
-       
-       }
-       
-       
+    Parqueo parqueoGymNova = new Parqueo();
+
+    /**
+     * This is just to startup parking
+     */
+    public void inicializarParqueo() {
+        parqueoGymNova.inicializarNiveles();
+
+    }
 
     // INCIALIZAR CLASES DE ACTIVIDADES 
-    
     /**
      * THIS METHOD FILLS OUT RANDOMLY THE INITIAL DATA OF THE PREDITERMINATED
      * ACTIVITIES FOR THE GYM
@@ -724,15 +718,14 @@ public class Metodos {
                 //fin del while de validacion 
                 // editar la clase
                 boolean encontrado = false;
-                
+
                 int cuposDisponibles = 0;
-                int idx = 0; 
-                
+                int idx = 0;
 
                 for (int i = 0; i < totalDeActividades; i++) {  // este for recorre todas las actividades "a" del arreglo actividades
 
                     Actividad a = actividades[i];
-                    
+
                     if (a.getNumeroUnico() == clase) { // que si la actividad a numero unico es igual al que digito el usuario 
                         encontrado = true;
                         idx = i;
@@ -743,8 +736,8 @@ public class Metodos {
                             cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
                             Socio[] socios = a.getSocios(); // asignamos para modificar
                             socios[a.getCantidadSocios()] = socioEncontrado; // anade a incritos
-                            a.setCantidadSocios(a.getCantidadSocios() +1);
-                            
+                            a.setCantidadSocios(a.getCantidadSocios() + 1);
+
                         } else {
                             JOptionPane.showMessageDialog(null, "La clase ya esta llena");
                         }
@@ -760,7 +753,7 @@ public class Metodos {
                     Actividad a = actividades[idx];
 
                     StringBuilder mostrar = new StringBuilder();
-                    
+
                     mostrar.append("LOS SOCIOS REGISTRADOS EN LA CLASE: " + a.getNombreActividad() + " ");
 
                     for (int i = 0; i < a.getCantidadSocios(); i++) {  // este for recorre todas las actividades "a" del arreglo actividades
@@ -773,7 +766,7 @@ public class Metodos {
 
                     JOptionPane.showMessageDialog(null, "EL SOCIO FUE REGISTRADO CON EXITO \n"
                             + "Cantidad de cupos disponibles de la clase:  " + cuposDisponibles + "\n"
-                             + " " + mostrar);
+                            + " " + mostrar);
 
                 }
             }
@@ -787,103 +780,97 @@ public class Metodos {
 
         //fin while editar 
     }
-    
+
     /**
      * This method allows to show which members are subscribe to which class
      */
-    
-    public void verRegistradosEnClase(){
-    
-         boolean verRegistros = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
+    public void verRegistradosEnClase() {
+
+        boolean verRegistros = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
 
         while (verRegistros) {
 
-                verListaClases(); // por si necesita recordad el numero unico de la clase 
+            verListaClases(); // por si necesita recordad el numero unico de la clase 
 
-                int clase = -1; // para validar que el usuario no ingrese un dato negativo 
+            int clase = -1; // para validar que el usuario no ingrese un dato negativo 
 
-                while (clase < 0) {  // mientras sea menor a 0 que 
+            while (clase < 0) {  // mientras sea menor a 0 que 
 
-                    try {
-                        String inputClase = JOptionPane.showInputDialog("Digite el numero de la clase para ver los inscritos");
-                        if (inputClase == null) {
-                            break; // cancelamos en caso de que el usuario cerrara la ventana 
-                        }
-                        clase = Integer.parseInt(inputClase); // asignamos si el valor 
+                try {
+                    String inputClase = JOptionPane.showInputDialog("Digite el numero de la clase para ver los inscritos");
+                    if (inputClase == null) {
+                        break; // cancelamos en caso de que el usuario cerrara la ventana 
+                    }
+                    clase = Integer.parseInt(inputClase); // asignamos si el valor 
 
-                        if (clase < 0) {
-                            JOptionPane.showInternalMessageDialog(null, "El numero de la clase no puede ser negativo");
-                        }
-                    } catch (NumberFormatException e) { // que no sea un numero entero 
-                        JOptionPane.showInternalMessageDialog(null, "El numero debe ser entero ");
+                    if (clase < 0) {
+                        JOptionPane.showInternalMessageDialog(null, "El numero de la clase no puede ser negativo");
+                    }
+                } catch (NumberFormatException e) { // que no sea un numero entero 
+                    JOptionPane.showInternalMessageDialog(null, "El numero debe ser entero ");
+                }
+            }
+
+            //fin del while de validacion 
+            // editar la clase
+            boolean encontrado = false;
+
+            int cuposDisponibles = 0;
+            int idx = 0;
+
+            for (int i = 0; i < totalDeActividades; i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+
+                Actividad a = actividades[i];
+
+                if (a.getNumeroUnico() == clase) { // que si la actividad a numero unico es igual al que digito el usuario 
+                    encontrado = true;
+                    idx = i;
+
+                    if (a.getCantidadActual() < a.getCapacidadActividad()) {  // if de si la clase esta llena 
+
+                        cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
+
                     }
                 }
 
-                //fin del while de validacion 
-                // editar la clase
-                boolean encontrado = false;
-                
-                int cuposDisponibles = 0;
-                int idx = 0; 
-                
+            }
+            if (!encontrado) { // si no se encontro
+                JOptionPane.showInternalMessageDialog(null, "El numero de clase no existe");
+            }
 
-                for (int i = 0; i < totalDeActividades; i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+            Actividad a = actividades[idx];
 
-                    Actividad a = actividades[i];
-                    
-                    if (a.getNumeroUnico() == clase) { // que si la actividad a numero unico es igual al que digito el usuario 
-                        encontrado = true;
-                        idx = i;
+            if (encontrado && a.getCantidadSocios() > 0) {
 
-                        if (a.getCantidadActual() < a.getCapacidadActividad()) {  // if de si la clase esta llena 
+                StringBuilder mostrar = new StringBuilder();
 
-                            
-                            cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
-                            
-                        } 
+                mostrar.append("LOS SOCIOS REGISTRADOS EN LA CLASE: " + a.getNombreActividad() + " ");
+
+                for (int i = 0; i < a.getCantidadSocios(); i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+                    Socio[] socios = a.getSocios();
+                    Socio s = socios[i];
+                    if (s != null) {
+                        mostrar.append(s.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante OJO IF PARA QUE NO AGREGUE NULO
                     }
-
                 }
-                if (!encontrado) { // si no se encontro
-                    JOptionPane.showInternalMessageDialog(null, "El numero de clase no existe");
-                }
-                
-                 Actividad a = actividades[idx];
 
-                if (encontrado && a.getCantidadSocios() > 0) {
+                JOptionPane.showMessageDialog(null,
+                        "Cantidad de cupos disponibles de la clase:  " + cuposDisponibles + "\n"
+                        + " " + mostrar);
 
-                    StringBuilder mostrar = new StringBuilder();
-                    
-                    mostrar.append("LOS SOCIOS REGISTRADOS EN LA CLASE: " + a.getNombreActividad() + " ");
+            } else {
 
-                    for (int i = 0; i < a.getCantidadSocios(); i++) {  // este for recorre todas las actividades "a" del arreglo actividades
-                        Socio[] socios = a.getSocios();
-                        Socio s = socios[i];
-                        if (s != null) {
-                            mostrar.append(s.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante OJO IF PARA QUE NO AGREGUE NULO
-                        }
-                    }
+                JOptionPane.showMessageDialog(null, "No hay inscritos en la Clase");
 
-                    JOptionPane.showMessageDialog(null,
-                             "Cantidad de cupos disponibles de la clase:  " + cuposDisponibles + "\n"
-                             + " " + mostrar);
-
-                } else {
-                    
-                    JOptionPane.showMessageDialog(null, "No hay inscritos en la Clase");
-                
-                }
-                /// PREGUNTAMOS SI DESEA EDITAR ALGO MAS
+            }
+            /// PREGUNTAMOS SI DESEA EDITAR ALGO MAS
             
                   
                         int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ver los inscritos de otra clase?");
             verRegistros = (respuesta == JOptionPane.YES_OPTION);
-            }
-            
-
         }
-    
-    
+
+    }
 
     /**
      * This method is to delete a SOCIO from a class
@@ -1247,10 +1234,8 @@ public class Metodos {
     }
 
     //FIN METODOS CABINA
-    
     // METODOS AUDITORIO FITNESS
-    
-   /**
+    /**
      * This method shows the available talks on the auditorium
      */
     public void mostrarHorarioAuditorio() {
@@ -1363,22 +1348,21 @@ public class Metodos {
         }
         JOptionPane.showMessageDialog(null, mostrar.toString());
 
-    } 
-    
-    /**'
+    }
+
+    /**
+     * '
      * This method allows to delete a seat on an event
      */
-    
-    public void eliminarSocioInscripcion (){
-         String diaEvento = JOptionPane.showInputDialog("Digite el Dia del Evento en el que desea incribir al Socio: ");
+    public void eliminarSocioInscripcion() {
+        String diaEvento = JOptionPane.showInputDialog("Digite el Dia del Evento en el que desea incribir al Socio: ");
         if (diaEvento == null) {
             return; // cancelado 
         }
-        
+
         // buscamos en el arreglo
-        
-        auditorioFitness eventoSeleccionado = null; 
-        
+        auditorioFitness eventoSeleccionado = null;
+
         for (auditorioFitness a : eventosAuditorio) {
             if (a.getDia().equalsIgnoreCase(diaEvento.trim())) {
 
@@ -1393,149 +1377,299 @@ public class Metodos {
             return;
 
         }
-        
+
         // pedir el socio 
-        
         String inputId = JOptionPane.showInputDialog("Digit el ID del socio que desea eliminar");
-        if (inputId == null) return; 
-        
-        int idSocio; 
+        if (inputId == null) {
+            return;
+        }
+
+        int idSocio;
         try {
-            idSocio = Integer.parseInt(inputId); 
+            idSocio = Integer.parseInt(inputId);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El ID debe ser un numeor valido");
             return;
         }
-        
-        
+
         // buscar al socio en inscritos
-        
-        Socio[] inscritos = eventoSeleccionado.getInscritos(); 
-        int contador = eventoSeleccionado.getContadorInscritos(); 
-        boolean eliminado = false; 
-        
+        Socio[] inscritos = eventoSeleccionado.getInscritos();
+        int contador = eventoSeleccionado.getContadorInscritos();
+        boolean eliminado = false;
+
         for (int i = 0; i < contador; i++) {
             Socio s = inscritos[i]; // asignamos
-            
-            if ( s != null && s.getIdSocio() == idSocio) { // si no es nulo y igual al que se escribio
-            
-            // moverlos a la izquierda del arreglo
+
+            if (s != null && s.getIdSocio() == idSocio) { // si no es nulo y igual al que se escribio
+
+                // moverlos a la izquierda del arreglo
                 for (int j = 0; j < contador; j++) {
                     inscritos[j] = inscritos[j + 1];
-                    
+
                 }
             }
             inscritos[contador - 1] = null; // eliminamos
             eventoSeleccionado.setContadorInscritos(contador - 1);
             JOptionPane.showMessageDialog(null, "Socio eliminado correctamente");
-            eliminado = true; 
+            eliminado = true;
             break;
-            
+
         }
-        
-        
-        if (!eliminado){
+
+        if (!eliminado) {
             JOptionPane.showMessageDialog(null, "Elsocio no esta inscito en el eveto");
-        
+
         }
     }
-    
+
     // FIN METODS CABINA FITNESS
-    
     // Inicio metodos parqueo 
-    
-    public void parqueo(){
-        
+    public void parqueo() {
+
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea parquear?");
 
         boolean parquear = (opcion == JOptionPane.YES_OPTION);
-                    
-                    while (parquear) {
 
-                    int parqueo1;
-                    
-                    parqueo1 = Integer.parseInt(JOptionPane.showInputDialog("Seleccione 1. Menu de Parqueo, 2. Salir"));
-                    
-                        switch (parqueo1) {
+        while (parquear) {
 
-                            case 1:
-                                JOptionPane.showMessageDialog(null, "ESTE ES EL ESTADO ACTUAL DE LOS PARQUEOS");
-                              
-                                int nivel = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el nivel del parqueo: 1. G1, 2. G2, 3. G3"));
-                                
-                                int idSocio = 0; 
-                                
-                               // buscamos al socio
-                                
-                                Socio socioSelec = buscarSocios(); 
+            int parqueo1;
 
-                                if (socioSelec != null) { // si el socio no es null
-                                  idSocio = socioSelec.getIdSocio(); 
-                               
+            parqueo1 = Integer.parseInt(JOptionPane.showInputDialog("Seleccione 1. Menu de Parqueo, 2. Salir"));
 
-                                if (nivel == 1) {
-                                    parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG1(), parqueoGymNova.getIdsG1(), idSocio);
-                                } else if (nivel == 2) {
-                                    parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG2(), parqueoGymNova.getIdsG2(), idSocio);
-                                } else if (nivel == 3) {
-                                    parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG3(), parqueoGymNova.getIdsG3(), idSocio);
-                                }
-                               
-                                 } else {
-                                    
-                                    JOptionPane.showMessageDialog(null, "No se parqueo el socio");
-                                
-                                }
-                                
-                                break;
-                               
-                            case 2:
-                                JOptionPane.showMessageDialog(null, "Gracias por usar el parqueo!!");
-                                break;
-                            default:
-                                JOptionPane.showMessageDialog(null, "La opcion selecionada no es valida");
-                                break;
-                                
+            switch (parqueo1) {
+
+                case 1:
+                    JOptionPane.showMessageDialog(null, "ESTE ES EL ESTADO ACTUAL DE LOS PARQUEOS");
+
+                    int nivel = Integer.parseInt(JOptionPane.showInputDialog("Seleccione el nivel del parqueo: 1. G1, 2. G2, 3. G3"));
+
+                    int idSocio = 0;
+
+                    // buscamos al socio
+                    Socio socioSelec = buscarSocios();
+
+                    if (socioSelec != null) { // si el socio no es null
+                        idSocio = socioSelec.getIdSocio();
+
+                        if (nivel == 1) {
+                            parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG1(), parqueoGymNova.getIdsG1(), idSocio);
+                        } else if (nivel == 2) {
+                            parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG2(), parqueoGymNova.getIdsG2(), idSocio);
+                        } else if (nivel == 3) {
+                            parqueoGymNova.asignarEspacio(parqueoGymNova.getNivelG3(), parqueoGymNova.getIdsG3(), idSocio);
                         }
-                        
-                        
-                        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al parqueo?");
-                        parquear = (respuesta == JOptionPane.YES_OPTION);
-                        
+
+                    } else {
+
+                        JOptionPane.showMessageDialog(null, "No se parqueo el socio");
+
                     }
-    
-        
-    
+
+                    break;
+
+                case 2:
+                    JOptionPane.showMessageDialog(null, "Gracias por usar el parqueo!!");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "La opcion selecionada no es valida");
+                    break;
+
+            }
+
+            int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ingresar de nuevo al parqueo?");
+            parquear = (respuesta == JOptionPane.YES_OPTION);
+
+        }
+
     }
-    
-    
+
     // Fin metodos del parqueo 
-    
     // METODOS ESPACIOS RECREATIVOS 
-    
     /**
      * THIS METHOD ALLOWS TO SEE RECREATIVE SPACES
      */
-    
-    public void visualizarEspaciosRecreativos(){
-        
-    StringBuilder mostrar = new StringBuilder();
+    public void visualizarEspaciosRecreativos() {
 
-            for (espacioRecreativo e : espaciosRecreativos) {
+        StringBuilder mostrar = new StringBuilder();
 
-                mostrar.append(e.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante
+        for (espacioRecreativo e : espaciosRecreativos) {
+
+            mostrar.append(e.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante
+        }
+
+        JOptionPane.showInternalMessageDialog(null, "LOS ESPACIOS RECREATIVOS SON: \n"
+                + mostrar);
+
+    }
+
+    /**
+     * This method is to register a member on a space
+     */
+    public void registrarSocioEnEspacio() {
+
+        JOptionPane.showMessageDialog(null, "BIENVENIDO AL REGISTRO DE SOCIOS A ESPACIO RECREATIVO");
+
+        boolean editarDatos = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
+
+        while (editarDatos) {
+
+            Socio socioEncontrado = buscarSocios();
+
+            if (socioEncontrado != null) {
+
+                boolean ver = (JOptionPane.showConfirmDialog(null,
+                        "¿Necesita ver los Espacios recreativos disponibles? Nota necesita el numero unico del espacio para registrar",
+                        "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+
+                if (ver) {
+
+                    visualizarEspaciosRecreativos(); // por si necesita recordad el numero unico de la clase 
+
+                }
+
+                int espacio = -1; // para validar que el usuario no ingrese un dato negativo 
+
+                while (espacio < 0) {  // mientras sea menor a 0 que 
+
+                    try {
+                        String inputClase = JOptionPane.showInputDialog("Digite el ID unico del espacio: ");
+                        if (inputClase == null) {
+                            break; // cancelamos en caso de que el usuario cerrara la ventana 
+                        }
+                        espacio = Integer.parseInt(inputClase); // asignamos si el valor 
+
+                        if (espacio < 0) {
+                            JOptionPane.showInternalMessageDialog(null, "El numero del espacio no puede ser negativo");
+                        }
+                    } catch (NumberFormatException e) { // que no sea un numero entero 
+                        JOptionPane.showInternalMessageDialog(null, "El numero debe ser entero ");
+                    }
+                }
+
+                //fin del while de validacion 
+                // editar la clase
+                boolean encontradoEspacio = false;
+                boolean encontradoPinpong = false;
+                espacioRecreativo espacioSelec = null; 
+
+                int cuposDisponibles = 0;
+             
+
+                for (int i = 0; i < espaciosRecreativos.length; i++) {   // este for recorre todas las espacios "e" del arreglo actividades
+                    
+                    espacioRecreativo e = espaciosRecreativos[i]; 
+
+                    if (e.getIdUnicoEspacio() == espacio && !e.getNombreEspacio().equalsIgnoreCase("Pinpong")) { // que si el espacio e numero unico es igual al que digito el usuario  y NO es pingpong 
+                        encontradoEspacio = true;
+                        espacioSelec = e;
+
+                        if (e.getCapacidadActual() < e.getCapacidadMaxima()) {  // if de si la clase esta llena 
+
+                            e.setCapacidadActual((e.getCapacidadActual() + 1)); // setteamos la cantidad actual 
+                            cuposDisponibles = (e.getCapacidadMaxima() - e.getCapacidadActual());
+                            Socio[] socios = e.getSocios(); // asignamos para modificar
+                            socios[e.getCantidadSocios()] = socioEncontrado; // anade a incritos
+                            e.setCantidadSocios(e.getCantidadSocios() + 1);
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El espacio ya esta lleno");
+                        }
+                    }
+
+                    if (e.getIdUnicoEspacio() == espacio && e.getNombreEspacio().equalsIgnoreCase("Pinpong")) {
+                        espacioSelec = e; 
+
+                        encontradoPinpong = true;
+                        Pinpong p = (Pinpong) e;
+                        /// el (Pinpong) es pq al ser una clase hija hay que castear al objeto con los atributos distintos
+                        /// para que java entienda que si estamos apuntando a un mismo tipo de objeto 
+                        
+                        // Pedimos el horario de incio de la reserva 
+            String hora = JOptionPane.showInputDialog("Digite la hora de incio (HH:mm): ");
+
+                        if (hora == null) {
+                            return; // lo cancelo 
+                        }
+                        // ajustar formatop si ingresan ejemplo 7:00
+
+                        if (hora.length() == 4) {
+                            hora = "0" + hora; // agregamnos el 0 para que se pueda parsear
+
+                        }
+                        LocalTime horarioSolicitado;
+                        try {
+                            horarioSolicitado = LocalTime.parse(hora);
+
+                        } catch (Exception a) {
+                            JOptionPane.showMessageDialog(null, "Formnato invalido");
+                            return;
+
+                        }
+
+                        // validar el horario 
+                        LocalTime apertura = LocalTime.of(9, 0); //abre a las 9 
+                        LocalTime cierre = LocalTime.of(18, 0); //abre a las 6pm
+
+                        if (horarioSolicitado.isBefore(apertura) || horarioSolicitado.isAfter(cierre)) { // si no esta dentro de las horas permitidas
+                            JOptionPane.showMessageDialog(null, "Hora solicitada fuera de horario");
+                            return;
+
+                        }
+
+                        // calculamos el indice para poder reservar 
+                        int indice = horaIndice(horarioSolicitado);
+                        Reserva[] reservas = p.getReserva(); // asignamos el arreglo correcto de reservas de la reserva seleccionada 
+
+                        if (reservas[indice] != null) {
+                            JOptionPane.showMessageDialog(null, "Ya hay una reserva en ese horario para la mesa de pingpong");
+                        } else { // si no se cumple ninguna excepcion reservamos normal 
+
+                            reservas[indice] = new Reserva(horarioSolicitado, socioEncontrado.getIdSocio(), socioEncontrado.getNombreSocio());
+                            JOptionPane.showMessageDialog(null, "Reserva confirmada en la mesa de Pinpong " + " " + "Para " + socioEncontrado.getNombreSocio() + " " + "A las " + horarioSolicitado);
+                        } return;
+
+                    }
+
+                    
+
+                }
+                
+                if (!encontradoEspacio && !encontradoPinpong) { // si no se encontro
+                    JOptionPane.showInternalMessageDialog(null, "El numero del espacio no existe"); return;
+                }
+
+                if (encontradoEspacio) {
+
+                   
+
+                    StringBuilder mostrar = new StringBuilder();
+
+                    mostrar.append("LOS SOCIOS REGISTRADOS EN EL ESPACIO: " + espacioSelec.getNombreEspacio() + " ");
+
+                    for (int i = 0; i < espacioSelec.getCantidadSocios(); i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+                        Socio[] socios = espacioSelec.getSocios();
+                        Socio s = socios[i];
+                        if (s != null) {
+                            mostrar.append(s.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante OJO IF PARA QUE NO AGREGUE NULO
+                        }
+                    }
+
+                    JOptionPane.showMessageDialog(null, "EL SOCIO FUE REGISTRADO CON EXITO \n"
+                            + "Cantidad de cupos disponibles el espacio:  " + cuposDisponibles + "\n"
+                            + " " + mostrar);
+
+                }
             }
+            /// PREGUNTAMOS SI DESEA EDITAR ALGO MAS
+            
+                  
+                        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea registrar a otro Socio?");
+            editarDatos = (respuesta == JOptionPane.YES_OPTION);
 
-            JOptionPane.showInternalMessageDialog(null, "LOS ESPACIOS RECREATIVOS SON: \n"
-                    + mostrar);
-        
-    
-    
-    
-  }
-    
-    
+        }
+
+        //fin while editar 
+    }
+
     // FIN METODOS ESPACIOS RECREATIVOS 
-    
-
 }

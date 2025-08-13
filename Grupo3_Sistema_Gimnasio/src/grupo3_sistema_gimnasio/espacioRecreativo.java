@@ -12,6 +12,36 @@ public class espacioRecreativo {
      private int capacidadMaxima;
     private int capacidadActual;
     private String nombreEspacio;
+    private int idUnicoEspacio; 
+    private Socio[] socios = new Socio[50]; // array para guardar los que se inscriben   
+    private int cantidadSocios = 0; 
+
+    public Socio[] getSocios() {
+        return socios;
+    }
+
+    public void setSocios(Socio[] socios) {
+        this.socios = socios;
+    }
+
+    public int getCantidadSocios() {
+        return cantidadSocios;
+    }
+
+    public void setCantidadSocios(int cantidadSocios) {
+        this.cantidadSocios = cantidadSocios;
+    }
+
+    
+    public int getIdUnicoEspacio() {
+        return idUnicoEspacio;
+    }
+
+    public void setIdUnicoEspacio(int idUnicoEspacio) {
+        this.idUnicoEspacio = idUnicoEspacio;
+    }
+    
+    
 
     public String getNombreEspacio() {
         return nombreEspacio;
@@ -38,15 +68,18 @@ public class espacioRecreativo {
         this.capacidadActual = capacidadActual;
     }
 
-    public espacioRecreativo(int capacidadMaxima, int capacidadActual, String nombreEspacio) {
+    public espacioRecreativo(int capacidadMaxima, int capacidadActual, String nombreEspacio, int idUnicoEspacio) {
         this.capacidadMaxima = capacidadMaxima;
         this.capacidadActual = capacidadActual;
         this.nombreEspacio = nombreEspacio;
+        this.idUnicoEspacio = idUnicoEspacio;
     }
+
+  
 
     @Override
     public String toString() {
-        return  "Nombre Espacio: " + nombreEspacio + " " + "Capacidad Maxima: " + capacidadMaxima + " " + "Capacidad Actual: " + capacidadActual ;
+        return  "Nombre Espacio: " + nombreEspacio + "  ID Espacio: " + idUnicoEspacio + " " + "Capacidad Maxima: " + capacidadMaxima + " " + "Capacidad Actual: " + capacidadActual ;
     }
 
   
