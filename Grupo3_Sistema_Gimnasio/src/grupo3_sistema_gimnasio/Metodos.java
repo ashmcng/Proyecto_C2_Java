@@ -61,7 +61,7 @@ public class Metodos {
      espaciosRecreativos[2] = new espacioRecreativo(2, 0, "Tenis 1");
      espaciosRecreativos[3] = new espacioRecreativo(2, 0, "Tenis 2");
      espaciosRecreativos[4] = new espacioRecreativo(10, 0, "Baloncesto");
-     espaciosRecreativos[5] = new Pinpong(2, 0, "Pinpiong");
+     espaciosRecreativos[5] = new Pinpong(2, 0, "Pinpong");
      }
      
      //fin
@@ -1510,6 +1510,35 @@ public class Metodos {
     
     
     // Fin metodos del parqueo 
+    
+    // METODOS ESPACIOS RECREATIVOS 
+    
+    public void visualizarEspaciosRecreativos(){
+        
+    StringBuilder mostrar = new StringBuilder();
+
+            for (espacioRecreativo e : espaciosRecreativos) {
+
+                mostrar.append(e.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante
+                
+               // if (e.getNombreEspacio().equalsIgnoreCase("Pinpong")) {
+                    
+                    
+                
+                // }
+
+            }
+
+            JOptionPane.showInternalMessageDialog(null, "LOS SOCIOS DE GYM NOVA SON: \n"
+                    + mostrar);
+        
+    
+    
+    
+  }
+    
+    
+    // FIN METODOS ESPACIOS RECREATIVOS 
     
 
 }

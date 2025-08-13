@@ -46,7 +46,7 @@ public class espacioRecreativo {
 
     @Override
     public String toString() {
-        return  "Nombre Espacio: " + nombreEspacio + "Capacidad Maxima: " + capacidadMaxima + "Capacidad Actual: " + capacidadActual ;
+        return  "Nombre Espacio: " + nombreEspacio + " " + "Capacidad Maxima: " + capacidadMaxima + " " + "Capacidad Actual: " + capacidadActual ;
     }
 
   

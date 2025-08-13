@@ -12,7 +12,8 @@ import static grupo3_sistema_gimnasio.cabinasInsonorizadas.maxReservas;
  */
 public class Pinpong extends espacioRecreativo {
        private Reserva[] reserva; 
-        private int cantidadReservas; 
+       private int cantidadReservas; 
+       private int reservasDisponibles = maxReservas - cantidadReservas; 
 
     public Pinpong(int capacidadMaxima, int capacidadActual, String nombreEspacio) {
         super(capacidadMaxima, capacidadActual, nombreEspacio);
@@ -34,6 +35,11 @@ public class Pinpong extends espacioRecreativo {
 
     public void setCantidadReservas(int cantidadReservas) {
         this.cantidadReservas = cantidadReservas;
+    }
+
+    @Override
+    public String toString() {
+        return  "Espacio: " + this.getNombreEspacio() + " " + "Reservas Disponibles: " + reservasDisponibles;
     }
 
         

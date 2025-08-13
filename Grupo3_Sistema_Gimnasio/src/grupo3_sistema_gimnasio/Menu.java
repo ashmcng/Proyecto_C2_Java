@@ -26,6 +26,7 @@ public class Menu {
         gymnova.dividirClases();
         gymnova.llenarCabinas();
         gymnova.inicializarParqueo();
+        gymnova.incializarEspaciosRecreativos();
 
         int opcion = JOptionPane.showConfirmDialog(null, "¿Desea ingresar al menu?");
         boolean estadoMenu = (opcion == JOptionPane.YES_OPTION);
@@ -128,7 +129,25 @@ public class Menu {
                     break;
                     
                       case 12:
-                         // AQUI SE INSTANCEAN LOS METODOS DE LOS ESPACIOS RECREATIVOS CON UN SIWTHC PARA QUE ESCOJA LA SECRETARIA 
+                        int hacer2 = Integer.parseInt(JOptionPane.showInputDialog("Digite: \n"
+                            + "1. Ver Espacios Recreativos\n"
+                            + "2. Inscribir a Socio a un Espacio \n"
+                            + "3. Mostrar inscritos \n"
+                            + "4. Eliminar Socio de un Espacio"));
+                    switch (hacer2) {
+                        case 1:
+                            gymnova.visualizarEspaciosRecreativos();
+                            break;
+                        case 2:
+                           
+                            break;
+                        case 3:
+                           
+                            break;
+                        case 4:
+                            
+                            break;
+                    }
                     
                     break;
                 case 13:
