@@ -160,7 +160,7 @@ public class Metodos {
      * THIS METHOD ALLOWS TO VIEW ALL MEMBER OF THE GYM AND THEIR DATA
      */
     public void visualizarListaSocios() {
-        int opcion2 = JOptionPane.showConfirmDialog(null, "¿Necesita ver la lista de Socios? Nota: Para registrar al socio se necesita su ID unico");
+        int opcion2 = JOptionPane.showConfirmDialog(null, "¿Necesita ver la lista de Socios? Nota: va a ncesitar el ID unico");
 
         boolean verLista1 = (opcion2 == JOptionPane.YES_OPTION);
 
@@ -826,9 +826,8 @@ public class Metodos {
                     encontrado = true;
                     idx = i;
 
-                        cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
+                    cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
 
-                    
                 }
 
             }
@@ -892,11 +891,32 @@ public class Metodos {
             return;
         }
 
+        verListaClases();
+
+        int clase = -1; // para validar que el usuario no ingrese un dato negativo 
+
+        while (clase < 0) {  // mientras sea menor a 0 que 
+
+            try {
+                String inputClase = JOptionPane.showInputDialog("Digite el numero de la clase a la que va a eliminar al socio: ");
+                if (inputClase == null) {
+                    break; // cancelamos en caso de que el usuario cerrara la ventana 
+                }
+                clase = Integer.parseInt(inputClase); // asignamos si el valor 
+
+                if (clase < 0) {
+                    JOptionPane.showInternalMessageDialog(null, "El numero de la clase no puede ser negativo");
+                }
+            } catch (NumberFormatException e) { // que no sea un numero entero 
+                JOptionPane.showInternalMessageDialog(null, "El numero debe ser entero ");
+            }
+        }
+
         for (int i = 0; i < totalDeActividades; i++) {  // Buscar el socio en todas las clases
             Actividad a = actividades[i];
             for (int j = 0; j < a.getSocios().length; j++) {
                 Socio socio = a.getSocios()[j]; // asignar el posible socio 
-                if (socio != null && socio.getIdSocio() == idSocio) { // si no es null y es igual al socitado 
+                if (socio != null && socio.getIdSocio() == idSocio && a.getNumeroUnico() == clase) { // si no es null y es igual al socitado 
                     //eliminar socio 
                     a.getSocios()[j] = null;
                     JOptionPane.showMessageDialog(null, "Socio eliminado de la clase");
@@ -1548,14 +1568,13 @@ public class Metodos {
                 // editar la clase
                 boolean encontradoEspacio = false;
                 boolean encontradoPinpong = false;
-                espacioRecreativo espacioSelec = null; 
+                espacioRecreativo espacioSelec = null;
 
                 int cuposDisponibles = 0;
-             
 
                 for (int i = 0; i < espaciosRecreativos.length; i++) {   // este for recorre todas las espacios "e" del arreglo actividades
-                    
-                    espacioRecreativo e = espaciosRecreativos[i]; 
+
+                    espacioRecreativo e = espaciosRecreativos[i];
 
                     if (e.getIdUnicoEspacio() == espacio && !e.getNombreEspacio().equalsIgnoreCase("Pinpong")) { // que si el espacio e numero unico es igual al que digito el usuario  y NO es pingpong 
                         encontradoEspacio = true;
@@ -1576,7 +1595,6 @@ public class Metodos {
 
                     if (e.getIdUnicoEspacio() == espacio && e.getNombreEspacio().equalsIgnoreCase("Pinpong")) {
                         espacioSelec = e;
-                        
 
                         encontradoPinpong = true;
                         Pinpong p = (Pinpong) e;
@@ -1622,25 +1640,23 @@ public class Metodos {
                         if (reservas[indice] != null) {
                             JOptionPane.showMessageDialog(null, "Ya hay una reserva en ese horario para la mesa de pingpong");
                         } else { // si no se cumple ninguna excepcion reservamos normal 
-                            espacioSelec.setCantidadSocios(espacioSelec.getCantidadSocios() + 1 );
+                            espacioSelec.setCantidadSocios(espacioSelec.getCantidadSocios() + 1);
 
                             reservas[indice] = new Reserva(horarioSolicitado, socioEncontrado.getIdSocio(), socioEncontrado.getNombreSocio());
                             JOptionPane.showMessageDialog(null, "Reserva confirmada en la mesa de Pinpong " + " " + "Para " + socioEncontrado.getNombreSocio() + " " + "A las " + horarioSolicitado);
-                        } return;
+                        }
+                        return;
 
                     }
 
-                    
-
                 }
-                
+
                 if (!encontradoEspacio && !encontradoPinpong) { // si no se encontro
-                    JOptionPane.showInternalMessageDialog(null, "El numero del espacio no existe"); return;
+                    JOptionPane.showInternalMessageDialog(null, "El numero del espacio no existe");
+                    return;
                 }
 
                 if (encontradoEspacio) {
-
-                   
 
                     StringBuilder mostrar = new StringBuilder();
 
@@ -1670,27 +1686,25 @@ public class Metodos {
 
         //fin while editar 
     }
-    
+
     /**
-     *  This method allows to see the register users on recreative spaces
+     * This method allows to see the register users on recreative spaces
      */
-    public void verInscritosEspacioRec(){
-        
-         boolean verRegistros = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
+    public void verInscritosEspacioRec() {
+
+        boolean verRegistros = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
 
         while (verRegistros) {
-        
-        boolean ver = (JOptionPane.showConfirmDialog(null,
-                        "¿Necesita ver los Espacios recreativos disponibles? Nota necesita el numero unico del espacio para registrar",
-                        "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
 
-        
-      if (ver) {
+            boolean ver = (JOptionPane.showConfirmDialog(null,
+                    "¿Necesita ver los Espacios recreativos disponibles? Nota necesita el numero unico del espacio para registrar",
+                    "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
 
-                    visualizarEspaciosRecreativos(); // por si necesita recordad el numero unico de la clase 
+            if (ver) {
 
-                }
+                visualizarEspaciosRecreativos(); // por si necesita recordad el numero unico de la clase 
 
+            }
 
             int espacio = -1; // para validar que el usuario no ingrese un dato negativo 
 
@@ -1716,26 +1730,22 @@ public class Metodos {
             boolean encontrado = false;
 
             int cuposDisponibles = 0;
-            espacioRecreativo espacioSelec = null; 
+            espacioRecreativo espacioSelec = null;
 
             for (int i = 0; i < espaciosRecreativos.length; i++) {  // este for recorre todas las actividades "a" del arreglo actividades
 
                 espacioRecreativo e = espaciosRecreativos[i];
-              
 
                 if (e.getIdUnicoEspacio() == espacio) { // que si la actividad a numero unico es igual al que digito el usuario 
                     encontrado = true;
-                      espacioSelec = e;
-                      cuposDisponibles = (e.getCapacidadMaxima() - e.getCapacidadActual());
+                    espacioSelec = e;
+                    cuposDisponibles = (e.getCapacidadMaxima() - e.getCapacidadActual());
                 }
-            
 
             }
             if (!encontrado) { // si no se encontro
                 JOptionPane.showInternalMessageDialog(null, "El numero del espacio no existe");
             }
-
-          
 
             if (encontrado && espacioSelec.getCantidadSocios() > 0 && !espacioSelec.getNombreEspacio().equalsIgnoreCase("Pinpong")) {
 
@@ -1755,44 +1765,166 @@ public class Metodos {
                         "Cantidad de cupos disponibles del espacio:  " + cuposDisponibles + "\n"
                         + " " + mostrar);
 
-            } 
-            
-            if (encontrado && espacioSelec.getCantidadSocios() > 0 && espacioSelec.getNombreEspacio().equalsIgnoreCase("Pinpong")){
+            }
+
+            if (encontrado && espacioSelec.getCantidadSocios() > 0 && espacioSelec.getNombreEspacio().equalsIgnoreCase("Pinpong")) {
                 Pinpong p = (Pinpong) espacioSelec;
                 Reserva[] reservas = p.getReserva();
-                
-                StringBuilder mensaje = new StringBuilder(); 
-                
-                mensaje.append("LOS SOCIOS CON RESERVAS EN EL ESPACIO PINPONG: "); 
-              
+
+                StringBuilder mensaje = new StringBuilder();
+
+                mensaje.append("LOS SOCIOS CON RESERVAS EN EL ESPACIO PINPONG: ");
+
                 for (int i = 0; i < reservas.length; i++) {
                     if (reservas[i] != null) {
-                    mensaje.append(reservas[i].toString()).append("\n");
+                        mensaje.append(reservas[i].toString()).append("\n");
                     }
-                    
-                }
-             
-                JOptionPane.showMessageDialog(null,mensaje);
 
-            } 
-            
-            if (espacioSelec.getCapacidadActual() < 0){
+                }
+
+                JOptionPane.showMessageDialog(null, mensaje);
+
+            }
+
+            if (espacioSelec.getCapacidadActual() < 0) {
 
                 JOptionPane.showMessageDialog(null, "No hay inscritos en el espacio");
 
-            } 
-            
-            
+            }
+
             /// PREGUNTAMOS SI DESEA EDITAR ALGO MAS
             
                   
                         int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ver los inscritos de otro Espacio recreativo?");
             verRegistros = (respuesta == JOptionPane.YES_OPTION);
-            
+
         }
-        
-    
+
     }
 
+    /**
+     * THIS METHOD ALLOWS TO DELETE USERS FROM A SPACE
+     */
+    public void eliminarSocioEspacio() {
+
+        boolean verRegistros = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
+
+        visualizarListaSocios();
+
+        String input = JOptionPane.showInputDialog("Digite el ID del socio que desea eliminar");
+        if (input == null) {
+            return; //cancelo sale 
+        }
+        int idSocio;
+
+        try {
+            idSocio = Integer.parseInt(input);
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, "El ID no es valido");
+            return;
+        }
+
+        while (verRegistros) {
+
+            boolean ver = (JOptionPane.showConfirmDialog(null,
+                    "¿Necesita ver los Espacios recreativos? Nota necesita el numero unico del espacio para eliminar",
+                    "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+
+            if (ver) {
+
+                visualizarEspaciosRecreativos(); // por si necesita recordad el numero unico de la clase 
+
+            }
+
+            int espacio = -1; // para validar que el usuario no ingrese un dato negativo 
+
+            while (espacio < 0) {  // mientras sea menor a 0 que 
+
+                try {
+                    String inputClase = JOptionPane.showInputDialog("Digite el numero del espacio al que va a eliminar al socio: ");
+                    if (inputClase == null) {
+                        break; // cancelamos en caso de que el usuario cerrara la ventana 
+                    }
+                    espacio = Integer.parseInt(inputClase); // asignamos si el valor 
+
+                    if (espacio < 0) {
+                        JOptionPane.showInternalMessageDialog(null, "El numero de la clase no puede ser negativo");
+                    }
+                } catch (NumberFormatException e) { // que no sea un numero entero 
+                    JOptionPane.showInternalMessageDialog(null, "El numero debe ser entero ");
+                }
+            }
+            
+            boolean encontrado = false; 
+
+            for (int i = 0; i < espaciosRecreativos.length; i++) {  // Buscar el socio en todas las clases
+                espacioRecreativo e = espaciosRecreativos[i];
+                for (int j = 0; j < e.getSocios().length; j++) {
+                    Socio socio = e.getSocios()[j]; // asignar el posible socio 
+                    if (socio != null && socio.getIdSocio() == idSocio && e.getIdUnicoEspacio() == espacio) { // si no es null y es igual al socitado 
+                        //eliminar socio 
+                        e.getSocios()[j] = null;
+                        JOptionPane.showMessageDialog(null, "Socio eliminado del espcio");
+                        encontrado = true;
+
+                    }
+                   
+                    }
+                
+                 if (e.getIdUnicoEspacio() == espacio && e.getNombreEspacio().equalsIgnoreCase("Pinpong")) {
+                        // Pedimos el horario de incio de la reserva 
+                        Pinpong p = (Pinpong) e;
+                        String hora = JOptionPane.showInputDialog("Digite la hora de la reserva (HH:mm): ");
+                        encontrado = true;
+
+                        if (hora == null) {
+                            return; // lo cancelo 
+                        }
+                        // ajustar formatop si ingresan ejemplo 7:00
+
+                        if (hora.length() == 4) {
+                            hora = "0" + hora; // agregamnos el 0 para que se pueda parsear
+
+                        }
+                        LocalTime horarioSolicitado;
+                        try {
+                            horarioSolicitado = LocalTime.parse(hora);
+
+                        } catch (Exception a) {
+                            JOptionPane.showMessageDialog(null, "Formnato invalido");
+                            return;
+
+                        }
+
+                        int indice = horaIndice(horarioSolicitado); // cambiamos al indice de los 18 bloques 
+
+                        Reserva[] reservas = p.getReserva(); // agarranmos el arreglo correspondiente 
+
+                        if (reservas[indice] == null) {
+                            JOptionPane.showMessageDialog(null, "No hay reservas que eliminar en ese horario");
+                        } else {
+                            reservas[indice] = null; // eliminamos haciendo null
+                            JOptionPane.showMessageDialog(null, "Reserva Eliminada correctamente.");
+
+                        }
+
+                }
+
+            }
+            
+            if (!encontrado){
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar al socio");
+            
+            }
+            
+               int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea eliminar a otro socio de un espacio?");
+            verRegistros = (respuesta == JOptionPane.YES_OPTION);
+
+        }
+
+    }
     // FIN METODOS ESPACIOS RECREATIVOS 
+
 }

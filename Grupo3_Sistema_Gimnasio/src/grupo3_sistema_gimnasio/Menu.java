@@ -145,6 +145,7 @@ public class Menu {
                             gymnova.verInscritosEspacioRec();
                             break;
                         case 4:
+                            gymnova.eliminarSocioEspacio();
                             
                             break;
                     }
