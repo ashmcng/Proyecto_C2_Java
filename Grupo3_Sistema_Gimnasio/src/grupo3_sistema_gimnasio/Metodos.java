@@ -826,11 +826,9 @@ public class Metodos {
                     encontrado = true;
                     idx = i;
 
-                    if (a.getCantidadActual() < a.getCapacidadActividad()) {  // if de si la clase esta llena 
-
                         cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
 
-                    }
+                    
                 }
 
             }
@@ -1669,6 +1667,100 @@ public class Metodos {
         }
 
         //fin while editar 
+    }
+    
+    /**
+     *  This method allows to see the register users on recreative spaces
+     */
+    public void verInscritosEspacioRec(){
+        
+        boolean ver = (JOptionPane.showConfirmDialog(null,
+                        "¿Necesita ver los Espacios recreativos disponibles? Nota necesita el numero unico del espacio para registrar",
+                        "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION);
+
+        
+      if (ver) {
+
+                    visualizarEspaciosRecreativos(); // por si necesita recordad el numero unico de la clase 
+
+                }
+
+
+            int espacio = -1; // para validar que el usuario no ingrese un dato negativo 
+
+            while (espacio < 0) {  // mientras sea menor a 0 que 
+
+                try {
+                    String inputClase = JOptionPane.showInputDialog("Digite el numero de la clase para ver los inscritos");
+                    if (inputClase == null) {
+                        break; // cancelamos en caso de que el usuario cerrara la ventana 
+                    }
+                    espacio = Integer.parseInt(inputClase); // asignamos si el valor 
+
+                    if (espacio < 0) {
+                        JOptionPane.showInternalMessageDialog(null, "El numero de la clase no puede ser negativo");
+                    }
+                } catch (NumberFormatException e) { // que no sea un numero entero 
+                    JOptionPane.showInternalMessageDialog(null, "El numero debe ser entero ");
+                }
+            }
+
+            //fin del while de validacion 
+            // editar la clase
+            boolean encontrado = false;
+
+            int cuposDisponibles = 0;
+            int idx = 0;
+
+            for (int i = 0; i < espaciosRecreativos.length; i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+
+                espacioRecreativo e = espaciosRecreativos[i];
+
+                if (e.getIdUnicoEspacio() == espacio) { // que si la actividad a numero unico es igual al que digito el usuario 
+                    encontrado = true;
+                    idx = i;
+
+                        cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
+
+                }
+
+            }
+            if (!encontrado) { // si no se encontro
+                JOptionPane.showInternalMessageDialog(null, "El numero de clase no existe");
+            }
+
+            Actividad a = actividades[idx];
+
+            if (encontrado && a.getCantidadSocios() > 0) {
+
+                StringBuilder mostrar = new StringBuilder();
+
+                mostrar.append("LOS SOCIOS REGISTRADOS EN LA CLASE: " + a.getNombreActividad() + " ");
+
+                for (int i = 0; i < a.getCantidadSocios(); i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+                    Socio[] socios = a.getSocios();
+                    Socio s = socios[i];
+                    if (s != null) {
+                        mostrar.append(s.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante OJO IF PARA QUE NO AGREGUE NULO
+                    }
+                }
+
+                JOptionPane.showMessageDialog(null,
+                        "Cantidad de cupos disponibles de la clase:  " + cuposDisponibles + "\n"
+                        + " " + mostrar);
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No hay inscritos en la Clase");
+
+            }
+            /// PREGUNTAMOS SI DESEA EDITAR ALGO MAS
+            
+                  
+                        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ver los inscritos de otra clase?");
+            verRegistros = (respuesta == JOptionPane.YES_OPTION);
+        
+    
     }
 
     // FIN METODOS ESPACIOS RECREATIVOS 
