@@ -142,7 +142,7 @@ public class Menu {
                            gymnova.registrarSocioEnEspacio();
                             break;
                         case 3:
-                           
+                            gymnova.verInscritosEspacioRec();
                             break;
                         case 4:
                             
