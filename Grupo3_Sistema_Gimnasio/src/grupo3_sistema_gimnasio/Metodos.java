@@ -51,6 +51,16 @@ public class Metodos {
         new auditorioFitness("Jueves", "Motivavion Deportiva", LocalTime.of(15, 0)),
         new auditorioFitness("Viernes", "preveencion De Lesiones", LocalTime.of(10, 0))};
     
+     // Espacios recreativos 
+       
+       espaciossRecreativos[] espaciosRecreativos = { new espaciossRecreativos(12, 0, "Cancha Futbol 1"), 
+       new espaciossRecreativos(12, 0, "Cancha Futrbol 2"), 
+       new espaciossRecreativos(10, 0, "Baloncesto"), 
+       new espaciossRecreativos(2, 0, "Tenis 1"), 
+       new espaciossRecreativos(2, 0, "Tenis 2")}; // creamos arreglo que almacena a todos los espacios
+       
+       PingPong pingpong = new PingPong(2, 0, "Pinpong");
+
     // Parqueo 
     
        Parqueo parqueoGymNova = new Parqueo();
