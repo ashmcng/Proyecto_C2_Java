@@ -1773,8 +1773,7 @@ public class Metodos {
                 }
              
                 JOptionPane.showMessageDialog(null,mensaje);
- 
-            
+
             } 
             
             if (espacioSelec.getCapacidadActual() < 0){
