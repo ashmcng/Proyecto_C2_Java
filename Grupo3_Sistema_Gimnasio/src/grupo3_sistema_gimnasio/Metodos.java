@@ -1513,6 +1513,10 @@ public class Metodos {
     
     // METODOS ESPACIOS RECREATIVOS 
     
+    /**
+     * THIS METHOD ALLOWS TO SEE RECREATIVE SPACES
+     */
+    
     public void visualizarEspaciosRecreativos(){
         
     StringBuilder mostrar = new StringBuilder();
@@ -1520,16 +1524,9 @@ public class Metodos {
             for (espacioRecreativo e : espaciosRecreativos) {
 
                 mostrar.append(e.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante
-                
-               // if (e.getNombreEspacio().equalsIgnoreCase("Pinpong")) {
-                    
-                    
-                
-                // }
-
             }
 
-            JOptionPane.showInternalMessageDialog(null, "LOS SOCIOS DE GYM NOVA SON: \n"
+            JOptionPane.showInternalMessageDialog(null, "LOS ESPACIOS RECREATIVOS SON: \n"
                     + mostrar);
         
     
