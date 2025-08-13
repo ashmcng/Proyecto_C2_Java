@@ -30,7 +30,7 @@ public class Metodos {
     private int totalDeActividadesNoche; // para recorrer el arreglo 
 
     // sala pesas, auditorio, salas insonorisada, espacios recreativos
-    private espaciosRecreativos[] espaciosRecreacion = new espaciosRecreativos[4];
+    private espacioRecreativo[] espaciosRecreacion = new espacioRecreativo[4];
 
     // objetosSocio es para poder hacer get al array de socios de la clase socio 
     Socio objetosSocio = new Socio();
@@ -53,13 +53,18 @@ public class Metodos {
     
      // Espacios recreativos 
        
-       espaciossRecreativos[] espaciosRecreativos = { new espaciossRecreativos(12, 0, "Cancha Futbol 1"), 
-       new espaciossRecreativos(12, 0, "Cancha Futrbol 2"), 
-       new espaciossRecreativos(10, 0, "Baloncesto"), 
-       new espaciossRecreativos(2, 0, "Tenis 1"), 
-       new espaciossRecreativos(2, 0, "Tenis 2")}; // creamos arreglo que almacena a todos los espacios
-       
-       PingPong pingpong = new PingPong(2, 0, "Pinpong");
+     espacioRecreativo[] espaciosRecreativos = new espacioRecreativo[6]; // solo hay 6 espacios
+     
+     public void incializarEspaciosRecreativos(){
+     espaciosRecreativos[0] = new espacioRecreativo(12, 0, "Cancha Futbol 1");
+     espaciosRecreativos[1] = new espacioRecreativo(12, 0, "Cancha Futbol 2");
+     espaciosRecreativos[2] = new espacioRecreativo(2, 0, "Tenis 1");
+     espaciosRecreativos[3] = new espacioRecreativo(2, 0, "Tenis 2");
+     espaciosRecreativos[4] = new espacioRecreativo(10, 0, "Baloncesto");
+     espaciosRecreativos[5] = new Pinpong(2, 0, "Pinpiong");
+     }
+     
+     //fin
 
     // Parqueo 
     
@@ -719,18 +724,27 @@ public class Metodos {
                 //fin del while de validacion 
                 // editar la clase
                 boolean encontrado = false;
+                
+                int cuposDisponibles = 0;
+                int idx = 0; 
+                
 
                 for (int i = 0; i < totalDeActividades; i++) {  // este for recorre todas las actividades "a" del arreglo actividades
 
                     Actividad a = actividades[i];
+                    
                     if (a.getNumeroUnico() == clase) { // que si la actividad a numero unico es igual al que digito el usuario 
                         encontrado = true;
+                        idx = i;
 
                         if (a.getCantidadActual() < a.getCapacidadActividad()) {  // if de si la clase esta llena 
 
                             a.setCantidadActual((a.getCantidadActual() + 1)); // setteamos la cantidad actual 
+                            cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
                             Socio[] socios = a.getSocios(); // asignamos para modificar
-                            socios[a.getCantidadActual() - 1] = socioEncontrado; // capacidad actual ya que es el ultimo espacio agregado -1 pq capacidad actual empieza en 1 y el arreglo en 0
+                            socios[a.getCantidadSocios()] = socioEncontrado; // anade a incritos
+                            a.setCantidadSocios(a.getCantidadSocios() +1);
+                            
                         } else {
                             JOptionPane.showMessageDialog(null, "La clase ya esta llena");
                         }
@@ -742,7 +756,24 @@ public class Metodos {
                 }
 
                 if (encontrado) {
-                    JOptionPane.showMessageDialog(null, "EL SOCIO FUE REGISTRADO CON EXITO");
+
+                    Actividad a = actividades[idx];
+
+                    StringBuilder mostrar = new StringBuilder();
+                    
+                    mostrar.append("LOS SOCIOS REGISTRADOS EN LA CLASE: " + a.getNombreActividad() + " ");
+
+                    for (int i = 0; i < a.getCantidadSocios(); i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+                        Socio[] socios = a.getSocios();
+                        Socio s = socios[i];
+                        if (s != null) {
+                            mostrar.append(s.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante OJO IF PARA QUE NO AGREGUE NULO
+                        }
+                    }
+
+                    JOptionPane.showMessageDialog(null, "EL SOCIO FUE REGISTRADO CON EXITO \n"
+                            + "Cantidad de cupos disponibles de la clase:  " + cuposDisponibles + "\n"
+                             + " " + mostrar);
 
                 }
             }
@@ -756,6 +787,103 @@ public class Metodos {
 
         //fin while editar 
     }
+    
+    /**
+     * This method allows to show which members are subscribe to which class
+     */
+    
+    public void verRegistradosEnClase(){
+    
+         boolean verRegistros = true;  // creamos este dato booleano para que se pueda volver a preguntar si desea cambiar algo + y salir del while
+
+        while (verRegistros) {
+
+                verListaClases(); // por si necesita recordad el numero unico de la clase 
+
+                int clase = -1; // para validar que el usuario no ingrese un dato negativo 
+
+                while (clase < 0) {  // mientras sea menor a 0 que 
+
+                    try {
+                        String inputClase = JOptionPane.showInputDialog("Digite el numero de la clase para ver los inscritos");
+                        if (inputClase == null) {
+                            break; // cancelamos en caso de que el usuario cerrara la ventana 
+                        }
+                        clase = Integer.parseInt(inputClase); // asignamos si el valor 
+
+                        if (clase < 0) {
+                            JOptionPane.showInternalMessageDialog(null, "El numero de la clase no puede ser negativo");
+                        }
+                    } catch (NumberFormatException e) { // que no sea un numero entero 
+                        JOptionPane.showInternalMessageDialog(null, "El numero debe ser entero ");
+                    }
+                }
+
+                //fin del while de validacion 
+                // editar la clase
+                boolean encontrado = false;
+                
+                int cuposDisponibles = 0;
+                int idx = 0; 
+                
+
+                for (int i = 0; i < totalDeActividades; i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+
+                    Actividad a = actividades[i];
+                    
+                    if (a.getNumeroUnico() == clase) { // que si la actividad a numero unico es igual al que digito el usuario 
+                        encontrado = true;
+                        idx = i;
+
+                        if (a.getCantidadActual() < a.getCapacidadActividad()) {  // if de si la clase esta llena 
+
+                            
+                            cuposDisponibles = (a.getCapacidadActividad() - a.getCantidadActual());
+                            
+                        } 
+                    }
+
+                }
+                if (!encontrado) { // si no se encontro
+                    JOptionPane.showInternalMessageDialog(null, "El numero de clase no existe");
+                }
+                
+                 Actividad a = actividades[idx];
+
+                if (encontrado && a.getCantidadSocios() > 0) {
+
+                    StringBuilder mostrar = new StringBuilder();
+                    
+                    mostrar.append("LOS SOCIOS REGISTRADOS EN LA CLASE: " + a.getNombreActividad() + " ");
+
+                    for (int i = 0; i < a.getCantidadSocios(); i++) {  // este for recorre todas las actividades "a" del arreglo actividades
+                        Socio[] socios = a.getSocios();
+                        Socio s = socios[i];
+                        if (s != null) {
+                            mostrar.append(s.toString()).append("\n"); // recorre y agrega saltyo de linea entre cada participante OJO IF PARA QUE NO AGREGUE NULO
+                        }
+                    }
+
+                    JOptionPane.showMessageDialog(null,
+                             "Cantidad de cupos disponibles de la clase:  " + cuposDisponibles + "\n"
+                             + " " + mostrar);
+
+                } else {
+                    
+                    JOptionPane.showMessageDialog(null, "No hay inscritos en la Clase");
+                
+                }
+                /// PREGUNTAMOS SI DESEA EDITAR ALGO MAS
+            
+                  
+                        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea ver los inscritos de otra clase?");
+            verRegistros = (respuesta == JOptionPane.YES_OPTION);
+            }
+            
+
+        }
+    
+    
 
     /**
      * This method is to delete a SOCIO from a class

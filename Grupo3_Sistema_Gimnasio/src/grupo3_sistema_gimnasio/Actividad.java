@@ -23,6 +23,15 @@ public class Actividad {
     private int capacidadActividad;
     private int cantidadActual;
     private Socio[] socios = new Socio[50]; // array para guardar los que se inscriben   
+    private int cantidadSocios = 0; 
+
+    public int getCantidadSocios() {
+        return cantidadSocios;
+    }
+
+    public void setCantidadSocios(int cantidadSocios) {
+        this.cantidadSocios = cantidadSocios;
+    }
 
     
     public Socio[] getSocios() {

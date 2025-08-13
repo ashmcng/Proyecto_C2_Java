@@ -38,13 +38,14 @@ public class Menu {
                     + "4. Registrasr a un socio en una clase \n"
                     + "5. Eliminar clase \n"
                     + "6. Eliminar Socio de una clase \n"
-                    + "7. Sala de Pesas \n"
-                    + "8. Cabinas Insonorizadas \n"
-                    + "9. Auditorio Fitness \n"
-                    + "10. Sala de pesas \n"
-                    + "11. Espacios Recreativos\n"
-                    + "12. Parqueo \n"
-                    + "13. Salir"));
+                    + "7. Ver inscritos en cada clase\n"
+                    + "8. Sala de Pesas \n"
+                    + "9. Cabinas Insonorizadas \n"
+                    + "10. Auditorio Fitness \n"
+                    + "11. Sala de pesas \n"
+                    + "12. Espacios Recreativos\n"
+                    + "13. Parqueo \n"
+                    + "14. Salir"));
 
             switch (option2) {
                 case 1:
@@ -74,11 +75,15 @@ public class Menu {
                     gymnova.eliminarSocioDeClase();
 
                     break;
-                case 7:
-                    gymnova.salaPesas();
+                    case 7:
+                    gymnova.verRegistradosEnClase();
 
                     break;
                 case 8:
+                    gymnova.salaPesas();
+
+                    break;
+                case 9:
                     int hacer = Integer.parseInt(JOptionPane.showInputDialog("Digite: \n"
                             + "1. Reservar a un Socio en una Cabina \n"
                             + "2. Ver horarios Resrvados \n"
@@ -96,7 +101,7 @@ public class Menu {
                             break;
                     }
                     break;
-                case 9:
+                case 10:
                     int hacer1 = Integer.parseInt(JOptionPane.showInputDialog("Digite: \n"
                             + "1. Ver programacion del Auditotio Fitness \n"
                             + "2. Inscribir a Socio a un Evento \n"
@@ -118,19 +123,19 @@ public class Menu {
                     }
                     break;
 
-                case 10:
+                case 11:
                     gymnova.salaPesas();
                     break;
                     
-                      case 11:
+                      case 12:
                          // AQUI SE INSTANCEAN LOS METODOS DE LOS ESPACIOS RECREATIVOS CON UN SIWTHC PARA QUE ESCOJA LA SECRETARIA 
                     
                     break;
-                case 12:
+                case 13:
                     gymnova.parqueo();
                     break;
 
-                case 13:
+                case 14:
                     estadoMenu = false;
                     continue;
                 default:
