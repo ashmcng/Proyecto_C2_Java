@@ -43,10 +43,9 @@ public class Menu {
                     + "8. Sala de Pesas \n"
                     + "9. Cabinas Insonorizadas \n"
                     + "10. Auditorio Fitness \n"
-                    + "11. Sala de pesas \n"
-                    + "12. Espacios Recreativos\n"
-                    + "13. Parqueo \n"
-                    + "14. Salir"));
+                    + "11. Espacios Recreativos\n" // Se eliminó la redundancia con Sala de Pesas
+                    + "12. Parqueo \n"
+                    + "13. Salir"));
 
             switch (option2) {
                 case 1:
@@ -80,7 +79,7 @@ public class Menu {
                     gymnova.verRegistradosEnClase();
 
                     break;
-                case 8:
+                case 8: // Sala de Pesas
                     gymnova.salaPesas();
 
                     break;
@@ -124,11 +123,7 @@ public class Menu {
                     }
                     break;
 
-                case 11:
-                    gymnova.salaPesas();
-                    break;
-                    
-                      case 12:
+                case 11: // Espacios Recreativos (anteriormente 12)
                         int hacer2 = Integer.parseInt(JOptionPane.showInputDialog("Digite: \n"
                             + "1. Ver Espacios Recreativos\n"
                             + "2. Inscribir a Socio a un Espacio \n"
@@ -139,7 +134,8 @@ public class Menu {
                             gymnova.visualizarEspaciosRecreativos();
                             break;
                         case 2:
-                           gymnova.registrarSocioEnEspacio();
+                           // gymnova.registrarSocioEnEspacio(idSocio, idEspacio); // idSocio e idEspacio no están definidos aquí
+                           gymnova.registrarSocioEnEspacio(); // Llamada sin parámetros, el método debe manejar la entrada
                             break;
                         case 3:
                             gymnova.verInscritosEspacioRec();
@@ -151,11 +147,11 @@ public class Menu {
                     }
                     
                     break;
-                case 13:
+                case 12: // Parqueo (anteriormente 13)
                     gymnova.parqueo();
                     break;
 
-                case 14:
+                case 13: // Salir (anteriormente 14)
                     estadoMenu = false;
                     continue;
                 default:
