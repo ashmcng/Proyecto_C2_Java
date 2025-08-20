@@ -1297,8 +1297,7 @@ public class Metodos {
             return;
         }
 
-        if (eventoSeleccionado != null
-                && eventoSeleccionado.getInscritos() != null
+        if (eventoSeleccionado != null      
                 && eventoSeleccionado.getInscritos().length > 0
                 && eventoSeleccionado.getInscritos()[eventoSeleccionado.getInscritos().length - 1] != null) {
 
@@ -1325,7 +1324,7 @@ public class Metodos {
      */
     public void mostrarInscritosAuditorio() {
         mostrarHorarioAuditorio();
-        String diaEvento = JOptionPane.showInputDialog("Digite el Dia del Evento en el que desea incribir al Socio: ");
+        String diaEvento = JOptionPane.showInputDialog("Digite el Dia que desea ver los inscritos ");
         if (diaEvento == null) {
             return; // cancelado 
         }
